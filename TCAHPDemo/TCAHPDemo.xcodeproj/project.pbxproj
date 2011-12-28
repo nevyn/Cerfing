@@ -1,0 +1,273 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
+		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
+		05BA81B614AB66F7003E10FB /* TCAHPDemo.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */; };
+		05BA81BE14AB6713003E10FB /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81BD14AB6713003E10FB /* AsyncSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		05BA81C314AB671C003E10FB /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81C014AB671C003E10FB /* NSString+UUID.m */; };
+		05BA81C414AB671C003E10FB /* TCAsyncHashProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */; };
+		05BA81C614AB67AB003E10FB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81C514AB67AB003E10FB /* CoreServices.framework */; };
+		05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81D914ABBB39003E10FB /* DemoServer.m */; };
+		05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81DD14ABBB42003E10FB /* DemoClient.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		05BA81A814AB66F7003E10FB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				05BA81B614AB66F7003E10FB /* TCAHPDemo.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		05BA81AA14AB66F7003E10FB /* TCAHPDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TCAHPDemo; sourceTree = BUILT_PRODUCTS_DIR; };
+		05BA81AE14AB66F7003E10FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		05BA81B114AB66F7003E10FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		05BA81B414AB66F7003E10FB /* TCAHPDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TCAHPDemo-Prefix.pch"; sourceTree = "<group>"; };
+		05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = TCAHPDemo.1; sourceTree = "<group>"; };
+		05BA81BC14AB6713003E10FB /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		05BA81BD14AB6713003E10FB /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		05BA81BF14AB671C003E10FB /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+UUID.h"; path = "../../NSString+UUID.h"; sourceTree = "<group>"; };
+		05BA81C014AB671C003E10FB /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+UUID.m"; path = "../../NSString+UUID.m"; sourceTree = "<group>"; };
+		05BA81C114AB671C003E10FB /* TCAsyncHashProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAsyncHashProtocol.h; path = ../../TCAsyncHashProtocol.h; sourceTree = "<group>"; };
+		05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAsyncHashProtocol.m; path = ../../TCAsyncHashProtocol.m; sourceTree = "<group>"; };
+		05BA81C514AB67AB003E10FB /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		05BA81D814ABBB39003E10FB /* DemoServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoServer.h; sourceTree = "<group>"; };
+		05BA81D914ABBB39003E10FB /* DemoServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoServer.m; sourceTree = "<group>"; };
+		05BA81DC14ABBB42003E10FB /* DemoClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClient.h; sourceTree = "<group>"; };
+		05BA81DD14ABBB42003E10FB /* DemoClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClient.m; sourceTree = "<group>"; };
+		05BA81DF14ABBC57003E10FB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		05BA81A714AB66F7003E10FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05BA81C614AB67AB003E10FB /* CoreServices.framework in Frameworks */,
+				05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		05BA819F14AB66F7003E10FB = {
+			isa = PBXGroup;
+			children = (
+				05BA81DF14ABBC57003E10FB /* README.md */,
+				05BA81B014AB66F7003E10FB /* TCAHPDemo */,
+				05BA81AD14AB66F7003E10FB /* Frameworks */,
+				05BA81AB14AB66F7003E10FB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		05BA81AB14AB66F7003E10FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05BA81AA14AB66F7003E10FB /* TCAHPDemo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		05BA81AD14AB66F7003E10FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05BA81C514AB67AB003E10FB /* CoreServices.framework */,
+				05BA81AE14AB66F7003E10FB /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		05BA81B014AB66F7003E10FB /* TCAHPDemo */ = {
+			isa = PBXGroup;
+			children = (
+				05BA81B114AB66F7003E10FB /* main.m */,
+				05BA81D814ABBB39003E10FB /* DemoServer.h */,
+				05BA81D914ABBB39003E10FB /* DemoServer.m */,
+				05BA81DC14ABBB42003E10FB /* DemoClient.h */,
+				05BA81DD14ABBB42003E10FB /* DemoClient.m */,
+				05BA81BC14AB6713003E10FB /* AsyncSocket.h */,
+				05BA81BD14AB6713003E10FB /* AsyncSocket.m */,
+				05BA81BF14AB671C003E10FB /* NSString+UUID.h */,
+				05BA81C014AB671C003E10FB /* NSString+UUID.m */,
+				05BA81C114AB671C003E10FB /* TCAsyncHashProtocol.h */,
+				05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */,
+				05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */,
+				05BA81B314AB66F7003E10FB /* Supporting Files */,
+			);
+			path = TCAHPDemo;
+			sourceTree = "<group>";
+		};
+		05BA81B314AB66F7003E10FB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				05BA81B414AB66F7003E10FB /* TCAHPDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		05BA81A914AB66F7003E10FB /* TCAHPDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05BA81B914AB66F7003E10FB /* Build configuration list for PBXNativeTarget "TCAHPDemo" */;
+			buildPhases = (
+				05BA81A614AB66F7003E10FB /* Sources */,
+				05BA81A714AB66F7003E10FB /* Frameworks */,
+				05BA81A814AB66F7003E10FB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TCAHPDemo;
+			productName = TCAHPDemo;
+			productReference = 05BA81AA14AB66F7003E10FB /* TCAHPDemo */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		05BA81A114AB66F7003E10FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 05BA81A414AB66F7003E10FB /* Build configuration list for PBXProject "TCAHPDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 05BA819F14AB66F7003E10FB;
+			productRefGroup = 05BA81AB14AB66F7003E10FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				05BA81A914AB66F7003E10FB /* TCAHPDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		05BA81A614AB66F7003E10FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05BA81B214AB66F7003E10FB /* main.m in Sources */,
+				05BA81BE14AB6713003E10FB /* AsyncSocket.m in Sources */,
+				05BA81C314AB671C003E10FB /* NSString+UUID.m in Sources */,
+				05BA81C414AB671C003E10FB /* TCAsyncHashProtocol.m in Sources */,
+				05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */,
+				05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		05BA81B714AB66F7003E10FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		05BA81B814AB66F7003E10FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		05BA81BA14AB66F7003E10FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TCAHPDemo/TCAHPDemo-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		05BA81BB14AB66F7003E10FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TCAHPDemo/TCAHPDemo-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		05BA81A414AB66F7003E10FB /* Build configuration list for PBXProject "TCAHPDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05BA81B714AB66F7003E10FB /* Debug */,
+				05BA81B814AB66F7003E10FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05BA81B914AB66F7003E10FB /* Build configuration list for PBXNativeTarget "TCAHPDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05BA81BA14AB66F7003E10FB /* Debug */,
+				05BA81BB14AB66F7003E10FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 05BA81A114AB66F7003E10FB /* Project object */;
+}
