@@ -1,6 +1,6 @@
 TCAsyncHashProtocol
 ====================
-By Joachim Bengtsson <joachimb@gmail.com>, 2010-12-28
+By Joachim Bengtsson <joachimb@gmail.com>, 2011-12-28
 
 I like constructing simple network protocols from plist/json-safe dicts, and
 transmit them over the wire as json. Easy to prototype with, easy to debug.
