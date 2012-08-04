@@ -5,7 +5,7 @@
 #error This file must be compiled with -fobjc-arc.
 #endif
 
-#define TC_DEBUG_HASHPROTO 0
+#define TC_DEBUG_HASHPROTO 1
 
 #if TC_DEBUG_HASHPROTO
 #define TCLog(...) NSLog(__VA_ARGS__)
@@ -66,9 +66,10 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 {
 	if([_delegate respondsToSelector:anInvocation.selector]) {
 		anInvocation.target = _delegate;
-		return [anInvocation invoke];
+		[anInvocation invoke];
+        return;
 	}
-	return [super forwardInvocation:anInvocation];
+	[super forwardInvocation:anInvocation];
 }
 -(BOOL)respondsToSelector:(SEL)aSelector;
 {
@@ -122,8 +123,13 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		NSString *selNs = [NSString stringWithFormat:@"request:%@:responder:", [hash objectForKey:@"command"]];
 		SEL sel = NSSelectorFromString(selNs);
 		
-		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand] && [_delegate respondsToSelector:sel]) {
-			((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash, cb);
+		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand]) {
+            if([_delegate respondsToSelector:sel]) {
+                ((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash, cb);
+            } else {
+                NSLog(@"%@: Invalid request '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
+                [_socket disconnect];
+            }
 		} else
 			[_delegate protocol:self receivedRequest:hash payload:payload responder:cb];
 	}
@@ -143,10 +149,16 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		NSString *selNs = [NSString stringWithFormat:@"command:%@:", command];
 		SEL sel = NSSelectorFromString(selNs);
 		
-		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand] && [_delegate respondsToSelector:sel])
-			((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
-		else
-			[_delegate protocol:self receivedHash:hash payload:payload];
+		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand]) {
+            if([_delegate respondsToSelector:sel]) {
+                ((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
+            } else {
+            
+            }
+		} else {
+            NSLog(@"%@: Invalid command '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
+            [_socket disconnect];
+        }
 	}
 	
 	return NO;
