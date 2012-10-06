@@ -5,7 +5,7 @@
 #error This file must be compiled with -fobjc-arc.
 #endif
 
-#define TC_DEBUG_HASHPROTO 1
+#define TC_DEBUG_HASHPROTO 0
 
 #if TC_DEBUG_HASHPROTO
 #define TCLog(...) NSLog(__VA_ARGS__)
@@ -153,7 +153,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
             if([_delegate respondsToSelector:sel]) {
                 ((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
             } else {
-            
+                [_delegate protocol:self receivedHash:hash payload:payload];
             }
 		} else {
             NSLog(@"%@: Invalid command '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
