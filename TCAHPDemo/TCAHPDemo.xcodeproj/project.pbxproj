@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05715BCB161FBC9C0023B321 /* TCAHPSimpleServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */; };
+		05715C00161FC3070023B321 /* TCAHPSimpleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */; };
 		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
 		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
 		05BA81B614AB66F7003E10FB /* TCAHPDemo.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */; };
@@ -32,6 +34,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		05715BC9161FBC9C0023B321 /* TCAHPSimpleServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPSimpleServer.h; path = ../../TCAHPSimpleServer.h; sourceTree = "<group>"; };
+		05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPSimpleServer.m; path = ../../TCAHPSimpleServer.m; sourceTree = "<group>"; };
+		05715BFE161FC3070023B321 /* TCAHPSimpleClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPSimpleClient.h; path = ../../TCAHPSimpleClient.h; sourceTree = "<group>"; };
+		05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPSimpleClient.m; path = ../../TCAHPSimpleClient.m; sourceTree = "<group>"; };
 		05BA81AA14AB66F7003E10FB /* TCAHPDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TCAHPDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		05BA81AE14AB66F7003E10FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05BA81B114AB66F7003E10FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -105,6 +111,10 @@
 				05BA81C014AB671C003E10FB /* NSString+UUID.m */,
 				05BA81C114AB671C003E10FB /* TCAsyncHashProtocol.h */,
 				05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */,
+				05715BC9161FBC9C0023B321 /* TCAHPSimpleServer.h */,
+				05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */,
+				05715BFE161FC3070023B321 /* TCAHPSimpleClient.h */,
+				05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */,
 				05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */,
 				05BA81B314AB66F7003E10FB /* Supporting Files */,
 			);
@@ -175,6 +185,8 @@
 				05BA81C414AB671C003E10FB /* TCAsyncHashProtocol.m in Sources */,
 				05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */,
 				05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */,
+				05715BCB161FBC9C0023B321 /* TCAHPSimpleServer.m in Sources */,
+				05715C00161FC3070023B321 /* TCAHPSimpleClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

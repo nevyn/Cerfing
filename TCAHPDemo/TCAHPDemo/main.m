@@ -4,8 +4,6 @@
 #import "DemoServer.h"
 #import "DemoClient.h"
 
-static const int kPort = 12345;
-
 // Start with no args to start a client and server,
 // start with one arg (hostname) to start a client
 int main (int argc, const char * argv[])
