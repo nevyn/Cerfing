@@ -123,13 +123,8 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		NSString *selNs = [NSString stringWithFormat:@"request:%@:responder:", [hash objectForKey:@"command"]];
 		SEL sel = NSSelectorFromString(selNs);
 		
-		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand]) {
-            if([_delegate respondsToSelector:sel]) {
-                ((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash, cb);
-            } else {
-                NSLog(@"%@: Invalid request '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
-                [_socket disconnect];
-            }
+		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand] && [_delegate respondsToSelector:sel]) {
+            ((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash, cb);
 		} else if([_delegate respondsToSelector:@selector(protocol:receivedRequest:payload:responder:)]) {
 			[_delegate protocol:self receivedRequest:hash payload:payload responder:cb];
         } else {
@@ -153,13 +148,8 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		NSString *selNs = [NSString stringWithFormat:@"command:%@:", command];
 		SEL sel = NSSelectorFromString(selNs);
 		
-		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand]) {
-            if([_delegate respondsToSelector:sel]) {
-                ((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
-            } else {
-                NSLog(@"%@: Invalid command '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
-                [_socket disconnect];
-            }
+		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand] && [_delegate respondsToSelector:sel]) {
+            ((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
 		} else if([_delegate respondsToSelector:@selector(protocol:receivedHash:payload:)]) {
             [_delegate protocol:self receivedHash:hash payload:payload];
         } else {
