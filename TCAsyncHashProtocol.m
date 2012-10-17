@@ -130,8 +130,12 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
                 NSLog(@"%@: Invalid request '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
                 [_socket disconnect];
             }
-		} else
+		} else if([_delegate respondsToSelector:@selector(protocol:receivedRequest:payload:responder:)]) {
 			[_delegate protocol:self receivedRequest:hash payload:payload responder:cb];
+        } else {
+            NSLog(@"%@: Invalid request '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
+            [_socket disconnect];
+        }
 	}
 	if(respKey) {
 		TCLog(@"INC RESP: %@ %@", [hash objectForKey:kTCCommand], respKey);
@@ -153,9 +157,12 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
             if([_delegate respondsToSelector:sel]) {
                 ((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
             } else {
-                [_delegate protocol:self receivedHash:hash payload:payload];
+                NSLog(@"%@: Invalid command '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
+                [_socket disconnect];
             }
-		} else {
+		} else if([_delegate respondsToSelector:@selector(protocol:receivedHash:payload:)]) {
+            [_delegate protocol:self receivedHash:hash payload:payload];
+        } else {
             NSLog(@"%@: Invalid command '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
             [_socket disconnect];
         }
