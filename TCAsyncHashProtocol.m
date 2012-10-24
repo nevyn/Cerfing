@@ -218,7 +218,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 }
 -(TCAsyncHashProtocolRequestCanceller)requestHash:(NSDictionary*)hash response:(TCAsyncHashProtocolResponseCallback)response;
 {
-	NSString *uuid = [NSString dt_uuid];
+	NSString *uuid = TCUUID();
 	[requests setObject:[response copy] forKey:uuid];
 	TCAsyncHashProtocolRequestCanceller canceller = ^{ [requests removeObjectForKey:uuid]; };
 	
