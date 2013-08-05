@@ -13,7 +13,6 @@
 		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
 		05BA81B614AB66F7003E10FB /* TCAHPDemo.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */; };
 		05BA81BE14AB6713003E10FB /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81BD14AB6713003E10FB /* AsyncSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		05BA81C314AB671C003E10FB /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81C014AB671C003E10FB /* NSString+UUID.m */; };
 		05BA81C414AB671C003E10FB /* TCAsyncHashProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */; };
 		05BA81C614AB67AB003E10FB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81C514AB67AB003E10FB /* CoreServices.framework */; };
 		05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81D914ABBB39003E10FB /* DemoServer.m */; };
@@ -45,8 +44,6 @@
 		05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = TCAHPDemo.1; sourceTree = "<group>"; };
 		05BA81BC14AB6713003E10FB /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		05BA81BD14AB6713003E10FB /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
-		05BA81BF14AB671C003E10FB /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+UUID.h"; path = "../../NSString+UUID.h"; sourceTree = "<group>"; };
-		05BA81C014AB671C003E10FB /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+UUID.m"; path = "../../NSString+UUID.m"; sourceTree = "<group>"; };
 		05BA81C114AB671C003E10FB /* TCAsyncHashProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAsyncHashProtocol.h; path = ../../TCAsyncHashProtocol.h; sourceTree = "<group>"; };
 		05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAsyncHashProtocol.m; path = ../../TCAsyncHashProtocol.m; sourceTree = "<group>"; };
 		05BA81C514AB67AB003E10FB /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -107,8 +104,6 @@
 				05BA81DD14ABBB42003E10FB /* DemoClient.m */,
 				05BA81BC14AB6713003E10FB /* AsyncSocket.h */,
 				05BA81BD14AB6713003E10FB /* AsyncSocket.m */,
-				05BA81BF14AB671C003E10FB /* NSString+UUID.h */,
-				05BA81C014AB671C003E10FB /* NSString+UUID.m */,
 				05BA81C114AB671C003E10FB /* TCAsyncHashProtocol.h */,
 				05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */,
 				05715BC9161FBC9C0023B321 /* TCAHPSimpleServer.h */,
@@ -181,7 +176,6 @@
 			files = (
 				05BA81B214AB66F7003E10FB /* main.m in Sources */,
 				05BA81BE14AB6713003E10FB /* AsyncSocket.m in Sources */,
-				05BA81C314AB671C003E10FB /* NSString+UUID.m in Sources */,
 				05BA81C414AB671C003E10FB /* TCAsyncHashProtocol.m in Sources */,
 				05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */,
 				05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */,
