@@ -1,5 +1,4 @@
 #import "TCAsyncHashProtocol.h"
-#import "NSString+UUID.h"
 
 #if !__has_feature(objc_arc)
 #error This file must be compiled with -fobjc-arc.
@@ -12,6 +11,8 @@
 #else
 #define TCLog(...)
 #endif
+
+static NSString *TCUUID(void);
 
 enum {
 	kTagLength,
@@ -240,3 +241,11 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 	return [NSString stringWithFormat:@"<TCAsyncHashProtocol@%p over %@>", self, _socket];
 }
 @end
+
+static NSString *TCUUID(void)
+{
+    CFUUIDRef uuid = CFUUIDCreate(NULL);
+    NSString *uuidS = (__bridge_transfer NSString*)CFUUIDCreateString(NULL, uuid);
+    CFRelease(uuid);
+	return uuidS;
+}
