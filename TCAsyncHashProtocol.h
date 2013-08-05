@@ -29,31 +29,36 @@ typedef void(^TCAsyncHashProtocolRequestCanceller)();
 
 /**
 	@class TCAsyncHashProtocol
-	@abstract Send and receive dicts with plist-safe values over an AsyncSocket.
+	@abstract Send and receive dictionaries with plist-safe values over a network connection.
 
 	I like constructing simple network protocols from plist/json-safe dicts, and
 	transmit them over the wire as json. Easy to prototype with, easy to debug.
-	Give TCAsyncHashProtocol an AsyncSocket, and this is what it'll do for you, plus
+	Give TCAsyncHashProtocol a socket, and this is what it'll do for you, plus
 	support for request-response, and arbitrary NSData attachments.
-	
 */
 @interface TCAsyncHashProtocol : NSObject <AsyncSocketDelegate>
 @property(nonatomic,strong,readonly) AsyncSocket *socket;
 @property(nonatomic,TCAHP_WEAK,readwrite) id<TCAsyncHashProtocolDelegate> delegate;
 
+/** Start using the socket 'sock' as a TCAHP transport. You can use `sock`'s normal
+	send and receive methods, but if you want to send or receive dictionaries, you can call
+	"readHash" and "sendHash" on it instead. If you want to dedicate the socket to sending and
+	receiving dictionaries, use it with `autoReadHash` set to YES.
+	@param sock   A socket. Does not need to be connected yet.
+*/
 -(id)initWithSocket:(AsyncSocket*)sock delegate:(id<TCAsyncHashProtocolDelegate>)delegate;
 
-/// Send any dictionary containing plist-safe types.
+/** Send any dictionary containing plist-safe types. */
 -(void)sendHash:(NSDictionary*)hash;
 
-/// Like above, but also attach an arbitrary payload.
+/** Like above, but also attach an arbitrary payload. */
 -(void)sendHash:(NSDictionary*)hash payload:(NSData*)payload;
 
-/// like above, but you can define a callback for when the other side responds.
+/** like above, but you can define a callback for when the other side responds. */
 -(TCAsyncHashProtocolRequestCanceller)requestHash:(NSDictionary*)hash response:(TCAsyncHashProtocolResponseCallback)response;
 
-/// Ask this TCAHP to ask its AsyncSocket to listen for another hash.
-/// Must not be called while a hash is already being waited for.
+/** Ask this TCAHP to ask its AsyncSocket to listen for another hash.
+	@note Must not be called while a hash is already being waited for. */
 -(void)readHash;
 
 /** @property autoReadHash
@@ -84,8 +89,15 @@ typedef void(^TCAsyncHashProtocolRequestCanceller)();
 	      callbacks in order to continue receiving hashes.
 */
 @protocol TCAsyncHashProtocolDelegate <NSObject, AsyncSocketDelegate>
+@required
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedHash:(NSDictionary*)hash payload:(NSData*)payload;
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;
+
+@optional
+/** By default, TCAHP JSON serializes hashes. Implement these two methods to use some other serialization,
+	such as plist, NSCoding, or gzipped json. */
+- (NSData*)protocol:(TCAsyncHashProtocol*)proto serializeHash:(NSDictionary*)hash;
+- (NSDictionary*)protocol:(TCAsyncHashProtocol*)proto unserializeHash:(NSData*)unhash;
 @end
 
 /** @abstract If used as a key in the sent hash, enables the behavior described

@@ -35,6 +35,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 	NSMutableDictionary *requests;
 	NSDictionary *savedHash;
 	BOOL _hasOutstandingHashRead;
+	BOOL _customSerialization;
 }
 @synthesize socket = _socket, delegate = _delegate, autoReadHash = _autoReadHash;
 @synthesize autoDispatchCommands = _autoDispatchCommands;
@@ -48,6 +49,11 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 	_socket.delegate = self;
 	_delegate = delegate;
 	requests = [NSMutableDictionary dictionary];
+	
+	BOOL supportsSerialization = [delegate respondsToSelector:@selector(protocol:serializeHash:)];
+	BOOL supportsUnserialization = [delegate respondsToSelector:@selector(protocol:unserializeHash:)];
+	_customSerialization = supportsSerialization && supportsUnserialization;
+	NSAssert(~(supportsSerialization ^ supportsUnserialization), @"Must support neither, or both.");
 	
 	return self;
 }
@@ -89,13 +95,15 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 */
 -(NSData*)serialize:(id)thing;
 {
-	//return [NSKeyedArchiver archivedDataWithRootObject:thing];
+	if(_customSerialization)
+		return [_delegate protocol:self serializeHash:thing];
 	NSError *err = nil;
 	return [NSJSONSerialization dataWithJSONObject:thing options:0 error:&err];
 }
 -(id)unserialize:(NSData*)unthing;
 {
-	//return [NSKeyedUnarchiver unarchiveObjectWithData:unthing];
+	if(_customSerialization)
+		return [_delegate protocol:self unserializeHash:unthing];
 	NSError *err = nil;
 	return [NSJSONSerialization JSONObjectWithData:unthing options:0 error:&err];
 }
