@@ -31,14 +31,14 @@
 	
 	
 	if(_messageToSet)
-		[_proto requestHash:[NSDictionary dictionaryWithObjectsAndKeys:
-			@"setMessage", @"command",
-			_messageToSet, @"contents",
-		nil] response:^(NSDictionary *response) {
-			if([[response objectForKey:@"success"] boolValue])
+		[_proto requestHash:@{
+			@"command": @"setMessage",
+			@"contents": _messageToSet
+		} response:^(NSDictionary *response) {
+			if([response[@"success"] boolValue])
 				NSLog(@"Successfully updated message!");
 			else
-				NSLog(@"Couldn't set message :( %@", [response objectForKey:@"reason"]);
+				NSLog(@"Couldn't set message :( %@", response[@"reason"]);
 			exit(0);
 		}];
 
@@ -46,7 +46,7 @@
 
 -(void)command:(TCAsyncHashProtocol*)proto displayMessage:(NSDictionary*)hash;
 {
-	NSLog(@"Incoming message: %@", [hash objectForKey:@"contents"]);
+	NSLog(@"Incoming message: %@", hash[@"contents"]);
 }
 
 

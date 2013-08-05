@@ -23,8 +23,8 @@ int main (int argc, const char * argv[])
 		@autoreleasepool {
 			sleep(1); // allow server to start. don't do this in a real app...
 			DemoClient *client = [DemoClient new];
-			client.host = argc>=2?[NSString stringWithUTF8String:argv[1]]:@"localhost";
-			client.messageToSet = argc>=3?[NSString stringWithUTF8String:argv[2]]:nil;
+			client.host = argc>=2?@(argv[1]):@"localhost";
+			client.messageToSet = argc>=3?@(argv[2]):nil;
 			[client run];
 			[[NSRunLoop currentRunLoop] run];
 		}

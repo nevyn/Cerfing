@@ -54,25 +54,25 @@
 
 -(void)scheduledBroadcast;
 {
-	[self broadcast:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"displayMessage", @"command",
-		_message, @"contents",
-	nil]];
+	[self broadcast:@{
+		@"command": @"displayMessage",
+		@"contents": _message
+	}];
 }
 
 -(void)request:(TCAsyncHashProtocol*)proto setMessage:(NSDictionary*)hash responder:(TCAsyncHashProtocolResponseCallback)respond;
 {
-	NSString *newMessage = [hash objectForKey:@"contents"];
-	if([newMessage rangeOfString:@"noob"].location != NSNotFound)
-		respond([NSDictionary dictionaryWithObjectsAndKeys:
-			(id)kCFBooleanFalse, @"success",
-			@"Be kind!", @"reason",
-		nil]);
-	else {
+	NSString *newMessage = hash[@"contents"];
+	if([newMessage rangeOfString:@"noob"].location != NSNotFound) {
+		respond(@{
+			@"success": @NO,
+			@"reason": @"Be kind!"
+		});
+	} else {
 		_message = newMessage;
-		respond([NSDictionary dictionaryWithObjectsAndKeys:
-				(id)kCFBooleanTrue, @"success",
-		nil]);
+		respond(@{
+			@"success": @YES
+		});
 	}
 }
 

@@ -108,52 +108,52 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 }
 -(BOOL)needsReadHashAfterDelegating:(NSDictionary*)hash payload:(NSData*)payload;
 {
-	NSString *reqKey = [hash objectForKey:kTCAsyncHashProtocolRequestKey];
-	NSString *respKey = [hash objectForKey:kTCAsyncHashProtocolResponseKey];
+	NSString *reqKey = hash[kTCAsyncHashProtocolRequestKey];
+	NSString *respKey = hash[kTCAsyncHashProtocolResponseKey];
 	if(reqKey) {
 		
 		TCLog(@"INC REQU: %@ %@", [hash objectForKey:kTCCommand], reqKey);
 		
 		TCAsyncHashProtocolResponseCallback cb = ^(NSDictionary *response) {
 			NSMutableDictionary *resp2 = [response mutableCopy];
-			[resp2 setObject:reqKey forKey:kTCAsyncHashProtocolResponseKey];
+			resp2[kTCAsyncHashProtocolResponseKey] = reqKey;
 			[self sendHash:resp2];
 		};
 		
-		NSString *selNs = [NSString stringWithFormat:@"request:%@:responder:", [hash objectForKey:@"command"]];
+		NSString *selNs = [NSString stringWithFormat:@"request:%@:responder:", hash[@"command"]];
 		SEL sel = NSSelectorFromString(selNs);
 		
-		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand] && [_delegate respondsToSelector:sel]) {
+		if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:sel]) {
             ((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash, cb);
 		} else if([_delegate respondsToSelector:@selector(protocol:receivedRequest:payload:responder:)]) {
 			[_delegate protocol:self receivedRequest:hash payload:payload responder:cb];
         } else {
-            NSLog(@"%@: Invalid request '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
+            NSLog(@"%@: Invalid request '%@' for delegate %@", self, hash[kTCCommand], _delegate);
             [_socket disconnect];
         }
 	}
 	if(respKey) {
 		TCLog(@"INC RESP: %@ %@", [hash objectForKey:kTCCommand], respKey);
-		TCAsyncHashProtocolResponseCallback cb = [requests objectForKey:respKey];
+		TCAsyncHashProtocolResponseCallback cb = requests[respKey];
 		if(cb) cb(hash);
 		else NSLog(@"Discarded response: %@", hash);
 		[requests removeObjectForKey:respKey];
 		return YES; // we're not calling delegate at all, so MUST readHash here
 	} 
 	if(!reqKey && !respKey) {
-		NSString *command = [hash objectForKey:kTCCommand];
+		NSString *command = hash[kTCCommand];
 		
 		TCLog(@"INC COMM: %@", [hash objectForKey:kTCCommand]);
 		
 		NSString *selNs = [NSString stringWithFormat:@"command:%@:", command];
 		SEL sel = NSSelectorFromString(selNs);
 		
-		if(self.autoDispatchCommands && [hash objectForKey:kTCCommand] && [_delegate respondsToSelector:sel]) {
+		if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:sel]) {
             ((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
 		} else if([_delegate respondsToSelector:@selector(protocol:receivedHash:payload:)]) {
             [_delegate protocol:self receivedHash:hash payload:payload];
         } else {
-            NSLog(@"%@: Invalid command '%@' for delegate %@", self, [hash objectForKey:kTCCommand], _delegate);
+            NSLog(@"%@: Invalid command '%@' for delegate %@", self, hash[kTCCommand], _delegate);
             [_socket disconnect];
         }
 	}
@@ -174,7 +174,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		NSDictionary *hash = [self unserialize:inData];
 		NSAssert(hash != nil, @"really should be unserializable");
 		
-		NSNumber *payloadSize = [hash objectForKey:kTCAsyncHashProtocolPayloadSizeKey];
+		NSNumber *payloadSize = hash[kTCAsyncHashProtocolPayloadSizeKey];
 		if(payloadSize) {
 			savedHash = hash;
 			[sock readDataToLength:payloadSize.longValue withTimeout:-1 tag:kTagPayload];
@@ -202,7 +202,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 {
 	if(payload) {
 		hash = [hash mutableCopy];
-		[(NSMutableDictionary*)hash setObject:[NSNumber numberWithUnsignedLong:payload.length] forKey:kTCAsyncHashProtocolPayloadSizeKey];
+		((NSMutableDictionary*)hash)[kTCAsyncHashProtocolPayloadSizeKey] = @(payload.length);
 	}
 	NSData *unthing = [self serialize:hash];
 	
@@ -219,11 +219,11 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 -(TCAsyncHashProtocolRequestCanceller)requestHash:(NSDictionary*)hash response:(TCAsyncHashProtocolResponseCallback)response;
 {
 	NSString *uuid = TCUUID();
-	[requests setObject:[response copy] forKey:uuid];
+	requests[uuid] = [response copy];
 	TCAsyncHashProtocolRequestCanceller canceller = ^{ [requests removeObjectForKey:uuid]; };
 	
 	NSMutableDictionary *hash2 = [hash mutableCopy];
-	[hash2 setObject:uuid forKey:kTCAsyncHashProtocolRequestKey];
+	hash2[kTCAsyncHashProtocolRequestKey] = uuid;
 	
 	[self sendHash:hash2];
 	
