@@ -30,10 +30,15 @@
 	[_socket disconnect];
 }
 
+- (BOOL)isConnected
+{
+	return [_socket isConnected];
+}
+
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
 	if([self.delegate respondsToSelector:_cmd])
-		[self.delegate onSocket:sock didConnectToHost:host port:port];
+		[(id)self.delegate onSocket:sock didConnectToHost:host port:port];
 	
 	[self.delegate transportDidConnect:self];
 }
@@ -41,7 +46,7 @@
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
 	if([self.delegate respondsToSelector:_cmd])
-		[self.delegate onSocketDidDisconnect:sock];
+		[(id)self.delegate onSocketDidDisconnect:sock];
 	if([self.delegate respondsToSelector:@selector(transportDidDisconnect:)])
 		[self.delegate transportDidDisconnect:self];
 }
@@ -49,7 +54,7 @@
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
 	if([self.delegate respondsToSelector:_cmd])
-		[self.delegate onSocket:sock didReadData:data withTag:tag];
+		[(id)self.delegate onSocket:sock didReadData:data withTag:tag];
 	
 	[self.delegate transport:self didReadData:data withTag:tag];
 }

@@ -20,18 +20,4 @@
 {
 	return [super respondsToSelector:aSelector] || [_delegate respondsToSelector:aSelector];
 }
-
-// Abstract methods
-- (void)readDataToLength:(NSUInteger)length withTimeout:(NSTimeInterval)timeout tag:(long)tag
-{
-	[NSException raise:NSInvalidArgumentException format:@"Not implemented"];
-}
-- (void)writeData:(NSData*)data withTimeout:(NSTimeInterval)timeout
-{
-	[NSException raise:NSInvalidArgumentException format:@"Not implemented"];
-}
-- (void)disconnect
-{
-	[NSException raise:NSInvalidArgumentException format:@"Not implemented"];
-}
 @end

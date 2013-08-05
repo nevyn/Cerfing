@@ -28,7 +28,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 // Public keys
        NSString *const kTCCommand = @"command";
 
-@interface TCAsyncHashProtocol ()
+@interface TCAsyncHashProtocol () <TCAHPTransportDelegate>
 @property(nonatomic,strong,readwrite) TCAHPTransport *transport;
 @end
 
@@ -209,7 +209,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		if([self needsReadHashAfterDelegating:hash payload:inData] || self.autoReadHash)
 			[self readHash];
 		
-	} else if([_delegate respondsToSelector:@selector(_cmd)])
+	} else if([_delegate respondsToSelector:_cmd])
 		[(id)_delegate transport:transport didReadData:inData withTag:tag];
 }
 -(void)sendHash:(NSDictionary*)hash;
