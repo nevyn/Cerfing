@@ -3,13 +3,17 @@ TCAsyncHashProtocol
 By Joachim Bengtsson <joachimb@gmail.com>, 2011-12-28
 
 I like constructing simple network protocols from plist/json-safe dicts, and
-transmit them over the wire as json. Easy to prototype with, easy to debug.
-Give TCAHP an AsyncSocket, and this is what it'll do for you, plus
-support for request-response, and arbitrary NSData attachments.
+transmit them over a socket as json, with as little framing as possible. Easy
+to prototype with, easy to debug. Give TCAHP an AsyncSocket, and this is what
+it'll do for you, plus support for request-response, and arbitrary NSData
+attachments.
 
-It is an embarrassment and almost an insult that my example project is a massive
-200 lines. I hope to be able to reduce the verbosity and boilerplate clutter of
-using TCAHP without making it heavy-weight.
+("HashProtocol" is a bit of a misnomer. 'Hash' in this context means
+"dictionary", from the Ruby usage of the word "hash" meaning "hash table".)
+
+It is an embarrassment and almost an insult that my example project is a
+massive 200 lines. I hope to be able to reduce the verbosity and boilerplate
+clutter of using TCAHP without making it heavy-weight.
 
 An example of using TCAHP to send a request to update the server's MOTD:
 
@@ -42,9 +46,9 @@ And on the receiving side:
 	}
 }</code></pre>
 
-(Note the latest piece of magic that I added, where the selector of the delegate
-method is created based on the value of the key 'command' in the message. I quite
-like it.)
+(Note the latest piece of magic that I added, where the selector of the
+delegate method is created based on the value of the key 'command' in the
+message. I quite like it.)
 
 As you can see, the resulting protocol is very weakly typed. In theory,
 this means you will be making typos and not understanding why the hell
