@@ -1,4 +1,5 @@
 #import "TCAsyncHashProtocol.h"
+#import "TCAHPAsyncSocketTransport.h"
 
 #if !__has_feature(objc_arc)
 #error This file must be compiled with -fobjc-arc.
@@ -28,7 +29,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
        NSString *const kTCCommand = @"command";
 
 @interface TCAsyncHashProtocol ()
-@property(nonatomic,strong,readwrite) AsyncSocket *socket;
+@property(nonatomic,strong,readwrite) TCAHPTransport *transport;
 @end
 
 @implementation TCAsyncHashProtocol {
@@ -37,16 +38,18 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 	BOOL _hasOutstandingHashRead;
 	BOOL _customSerialization;
 }
-@synthesize socket = _socket, delegate = _delegate, autoReadHash = _autoReadHash;
+@synthesize transport = _transport, delegate = _delegate, autoReadHash = _autoReadHash;
 @synthesize autoDispatchCommands = _autoDispatchCommands;
 
--(id)initWithSocket:(AsyncSocket*)sock delegate:(id<TCAsyncHashProtocolDelegate>)delegate;
+-(id)initWithTransport:(TCAHPTransport*)transport delegate:(id<TCAsyncHashProtocolDelegate>)delegate
 {
+	if(!transport) return nil;
+	
 	if(!(self = [super init])) return nil;
 	
-	self.socket = sock;
+	self.transport = transport;
 	_autoReadHash = YES;
-	_socket.delegate = self;
+	_transport.delegate = self;
 	_delegate = delegate;
 	requests = [NSMutableDictionary dictionary];
 	
@@ -57,26 +60,29 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 	
 	return self;
 }
--(void)dealloc;
+
+-(id)initWithSocket:(AsyncSocket*)sock delegate:(id<TCAsyncHashProtocolDelegate>)delegate
 {
-	_socket.delegate = nil;
+	return [self initWithTransport:[[NSClassFromString(@"TCAHPAsyncSocketTransport") alloc] initWithSocket:sock] delegate:delegate];
 }
 
-// Forward AsyncSocket delegates.
+-(void)dealloc;
+{
+	_transport.delegate = nil;
+}
+
+// Forward Transport delegates.
 -(NSMethodSignature*)methodSignatureForSelector:(SEL)aSelector;
 {
 	if([super respondsToSelector:aSelector]) return [super methodSignatureForSelector:aSelector];
 	if([_delegate respondsToSelector:aSelector]) return [(id)_delegate methodSignatureForSelector:aSelector];
 	return nil;
 }
--(void)forwardInvocation:(NSInvocation *)anInvocation;
+- (id)forwardingTargetForSelector:(SEL)aSelector
 {
-	if([_delegate respondsToSelector:anInvocation.selector]) {
-		anInvocation.target = _delegate;
-		[anInvocation invoke];
-        return;
-	}
-	[super forwardInvocation:anInvocation];
+	if([_delegate respondsToSelector:aSelector])
+		return _delegate;
+	return [super forwardingTargetForSelector:aSelector];
 }
 -(BOOL)respondsToSelector:(SEL)aSelector;
 {
@@ -108,13 +114,16 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 	return [NSJSONSerialization JSONObjectWithData:unthing options:0 error:&err];
 }
 
-#pragma mark AsyncSocket
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port;
+#pragma mark Transport
+- (void)transportDidConnect:(TCAHPTransport*)transport
 {
-	if([self.delegate respondsToSelector:_cmd]) [self.delegate onSocket:sock didConnectToHost:host port:port];
+	if([self.delegate respondsToSelector:_cmd])
+		[(id)self.delegate transportDidConnect:transport];
 	
-	if(self.autoReadHash) [self readHash];
+	if(self.autoReadHash)
+		[self readHash];
 }
+
 -(BOOL)needsReadHashAfterDelegating:(NSDictionary*)hash payload:(NSData*)payload;
 {
 	NSString *reqKey = hash[kTCAsyncHashProtocolRequestKey];
@@ -138,7 +147,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 			[_delegate protocol:self receivedRequest:hash payload:payload responder:cb];
         } else {
             NSLog(@"%@: Invalid request '%@' for delegate %@", self, hash[kTCCommand], _delegate);
-            [_socket disconnect];
+            [_transport disconnect];
         }
 	}
 	if(respKey) {
@@ -163,13 +172,13 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
             [_delegate protocol:self receivedHash:hash payload:payload];
         } else {
             NSLog(@"%@: Invalid command '%@' for delegate %@", self, hash[kTCCommand], _delegate);
-            [_socket disconnect];
+            [_transport disconnect];
         }
 	}
 	
 	return NO;
 }
--(void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)inData withTag:(long)tag;
+- (void)transport:(TCAHPTransport*)transport didReadData:(NSData*)inData withTag:(long)tag
 {
 	__typeof(self) surviveEvenIfReleasedByDelegate = self;
 	(void)surviveEvenIfReleasedByDelegate;
@@ -178,7 +187,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		uint32_t readLength = 0;
 		[inData getBytes:&readLength length:4];
 		readLength = ntohl(readLength);
-		[_socket readDataToLength:readLength withTimeout:-1 tag:kTagData];
+		[_transport readDataToLength:readLength withTimeout:-1 tag:kTagData];
 	} else if(tag == kTagData) {
 		NSDictionary *hash = [self unserialize:inData];
 		NSAssert(hash != nil, @"really should be unserializable");
@@ -186,7 +195,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		NSNumber *payloadSize = hash[kTCAsyncHashProtocolPayloadSizeKey];
 		if(payloadSize) {
 			savedHash = hash;
-			[sock readDataToLength:payloadSize.longValue withTimeout:-1 tag:kTagPayload];
+			[transport readDataToLength:payloadSize.longValue withTimeout:-1 tag:kTagPayload];
 		} else {
 			_hasOutstandingHashRead = NO;
 			if([self needsReadHashAfterDelegating:hash payload:nil] || self.autoReadHash)
@@ -201,7 +210,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 			[self readHash];
 		
 	} else if([_delegate respondsToSelector:@selector(_cmd)])
-		[_delegate onSocket:sock didReadData:inData withTag:tag];
+		[(id)_delegate transport:transport didReadData:inData withTag:tag];
 }
 -(void)sendHash:(NSDictionary*)hash;
 {
@@ -220,10 +229,10 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 	
 	uint32_t writeLength = htonl(unthing.length);
 	NSData *lengthD = [NSData dataWithBytes:&writeLength length:4];
-	[_socket writeData:lengthD withTimeout:-1 tag:kTagLength];
+	[_transport writeData:lengthD withTimeout:-1];
 	
-	[_socket writeData:unthing withTimeout:-1 tag:kTagData];
-	if(payload) [_socket writeData:payload withTimeout:-1 tag:kTagPayload];
+	[_transport writeData:unthing withTimeout:-1];
+	if(payload) [_transport writeData:payload withTimeout:-1];
 }
 -(TCAsyncHashProtocolRequestCanceller)requestHash:(NSDictionary*)hash response:(TCAsyncHashProtocolResponseCallback)response;
 {
@@ -242,11 +251,11 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 {
 	NSAssert(_hasOutstandingHashRead == NO, @"-[readHash] can't be called again until the previous request has finished");
 	_hasOutstandingHashRead = YES;
-	[_socket readDataToLength:4 withTimeout:-1 tag:kTagLength];
+	[_transport readDataToLength:4 withTimeout:-1 tag:kTagLength];
 }
 -(NSString*)description;
 {
-	return [NSString stringWithFormat:@"<TCAsyncHashProtocol@%p over %@>", self, _socket];
+	return [NSString stringWithFormat:@"<TCAsyncHashProtocol@%p over %@>", self, _transport];
 }
 @end
 

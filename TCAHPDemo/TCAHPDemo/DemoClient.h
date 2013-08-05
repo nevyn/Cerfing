@@ -1,4 +1,5 @@
 #import "TCAsyncHashProtocol.h"
+#import "AsyncSocket.h"
 
 @interface DemoClient : NSObject <TCAsyncHashProtocolDelegate>
 @property(copy) NSString *host;

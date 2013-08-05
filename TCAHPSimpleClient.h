@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TCAsyncHashProtocol.h"
+#import "AsyncSocket.h"
 
 // Just finds the first Bonjour service it can find, connects, and forwards commands to you if it's connected.
 @interface TCAHPSimpleClient : NSObject

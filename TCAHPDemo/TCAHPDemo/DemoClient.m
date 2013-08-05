@@ -12,11 +12,11 @@
 	
 	_socket = [[AsyncSocket alloc] initWithDelegate:self];
 	
-	
 	return self;
 }
 -(void)run;
 {
+	NSLog(@"Client connecting to %@", _host);
 	[_socket connectToHost:_host onPort:kPort error:nil];
 }
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port;
@@ -55,11 +55,11 @@
 	// If we reach this delegate, command delegation failed and we don't understand
 	// the command
 	NSLog(@"Invalid command: %@", hash);
-	[proto.socket disconnect];
+	[proto.transport disconnect];
 }
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;
 {
 	NSLog(@"Invalid request: %@", hash);
-	[proto.socket disconnect];
+	[proto.transport disconnect];
 }
 @end

@@ -12,6 +12,7 @@
 	_listen = [[AsyncSocket alloc] initWithDelegate:self];
 	_clients = [NSMutableArray new];
 	_message = @"Hello world!";
+	NSLog(@"Server listening");
 	
 	_timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(scheduledBroadcast) userInfo:nil repeats:YES];
 	
@@ -34,15 +35,19 @@
 	// Dispatch on selector of the incoming command instead of using delegate methods.
 	proto.autoDispatchCommands = YES;
 	
+	NSLog(@"Server accepted new socket %@", newSocket);
+	
 	// Hang on to it, or else it has no owner and will disconnect.
 	[_clients addObject:proto];
 }
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock;
+- (void)transportDidDisconnect:(TCAHPTransport*)transport
 {
 	TCAsyncHashProtocol *proto = nil;
 	for(TCAsyncHashProtocol *potential in _clients)
-		if(potential.socket == sock) proto = potential;
-
+		if(potential.transport == transport) proto = potential;
+	
+	NSLog(@"Removing disconnected client %@", transport);
+	
 	[_clients removeObject:proto];
 }
 
@@ -63,6 +68,9 @@
 -(void)request:(TCAsyncHashProtocol*)proto setMessage:(NSDictionary*)hash responder:(TCAsyncHashProtocolResponseCallback)respond;
 {
 	NSString *newMessage = hash[@"contents"];
+	
+	NSLog(@"Changing message to %@", newMessage);
+	
 	if([newMessage rangeOfString:@"noob"].location != NSNotFound) {
 		respond(@{
 			@"success": @NO,
@@ -81,11 +89,11 @@
 	// If we reach this delegate, command delegation failed and we don't understand
 	// the command
 	NSLog(@"Invalid command: %@", hash);
-	[proto.socket disconnect];
+	[proto.transport disconnect];
 }
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;
 {
 	NSLog(@"Invalid request: %@", hash);
-	[proto.socket disconnect];
+	[proto.transport disconnect];
 }
 @end

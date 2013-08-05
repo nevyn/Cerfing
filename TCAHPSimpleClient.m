@@ -39,7 +39,7 @@
 
 - (void)reconnect;
 {
-    [_proto.socket disconnect];
+    [_proto.transport disconnect];
     [_connectingSocket disconnect];
     _proto = nil;
     _connectingSocket = nil;

@@ -1,11 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "AsyncSocket.h"
-
-#if __has_feature(objc_arc)
-#define TCAHP_WEAK weak
-#else
-#define TCAHP_WEAK unsafe_unretained
-#endif
+#import "TCAHPTransport.h"
+@class AsyncSocket;
 
 @protocol TCAsyncHashProtocolDelegate;
 
@@ -36,16 +31,22 @@ typedef void(^TCAsyncHashProtocolRequestCanceller)();
 	Give TCAsyncHashProtocol a socket, and this is what it'll do for you, plus
 	support for request-response, and arbitrary NSData attachments.
 */
-@interface TCAsyncHashProtocol : NSObject <AsyncSocketDelegate>
-@property(nonatomic,strong,readonly) AsyncSocket *socket;
-@property(nonatomic,TCAHP_WEAK,readwrite) id<TCAsyncHashProtocolDelegate> delegate;
+@interface TCAsyncHashProtocol : NSObject
+@property(nonatomic,strong,readonly) TCAHPTransport *transport;
+@property(nonatomic,weak,readwrite) id<TCAsyncHashProtocolDelegate> delegate;
 
-/** Start using the socket 'sock' as a TCAHP transport. You can use `sock`'s normal
+/** Start using the socket 'transport' as a TCAHP transport. You can use `transport`'s normal
 	send and receive methods, but if you want to send or receive dictionaries, you can call
 	"readHash" and "sendHash" on it instead. If you want to dedicate the socket to sending and
 	receiving dictionaries, use it with `autoReadHash` set to YES.
-	@param sock   A socket. Does not need to be connected yet.
+	@param transport   A transport wrapping a socket. Does not need to be connected yet.
+	@param delegate	   A TCAHPDelegate. This delegate can also optionally respond to TCAHPTransportDelegate methods,
+					   as well as the delegate methods of the socket that the transport is wrapping.
 */
+-(id)initWithTransport:(TCAHPTransport*)transport delegate:(id<TCAsyncHashProtocolDelegate>)delegate;
+
+/** Like -initWithTransport:delegate:, but a convenience method creating a transport wrapper around
+	an AsyncSocket instance. Fails if you haven't compiled TCAHPAsyncSocketTransport.m into your target.*/
 -(id)initWithSocket:(AsyncSocket*)sock delegate:(id<TCAsyncHashProtocolDelegate>)delegate;
 
 /** Send any dictionary containing plist-safe types. */
@@ -82,13 +83,12 @@ typedef void(^TCAsyncHashProtocolRequestCanceller)();
 
 
 /** @protocol TCAsyncHashProtocolDelegate
-	Hash, request and payload delivery delegate methods. Also extends AsyncSocketDelegate, so you can
-	implement some of those as well if you want.
+	Hash, request and payload delivery and customization delegate methods.
 	
 	@note If you have set autoReadHash to NO, call readHash some time after receiving any of these
 	      callbacks in order to continue receiving hashes.
 */
-@protocol TCAsyncHashProtocolDelegate <NSObject, AsyncSocketDelegate>
+@protocol TCAsyncHashProtocolDelegate <NSObject>
 @required
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedHash:(NSDictionary*)hash payload:(NSData*)payload;
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;

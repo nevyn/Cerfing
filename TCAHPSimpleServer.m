@@ -58,13 +58,13 @@
     if([_delegate respondsToSelector:@selector(server:acceptedNewClient:)])
         [_delegate server:self acceptedNewClient:proto];
 }
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock;
+- (void)transportDidDisconnect:(TCAHPTransport*)transport
 {
 	TCAsyncHashProtocol *proto = nil;
 	for(TCAsyncHashProtocol *potential in _clients)
-		if(potential.socket == sock) proto = potential;
+		if(potential.transport == transport) proto = potential;
     
-    NSLog(@"Lost connection %@", sock);
+    NSLog(@"Lost connection %@", transport);
     if([_delegate respondsToSelector:@selector(server:lostClient:)])
         [_delegate server:self lostClient:proto];
 	[_clients removeObject:proto];
