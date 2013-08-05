@@ -17,8 +17,8 @@
 		05BA81C614AB67AB003E10FB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81C514AB67AB003E10FB /* CoreServices.framework */; };
 		05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81D914ABBB39003E10FB /* DemoServer.m */; };
 		05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81DD14ABBB42003E10FB /* DemoClient.m */; };
-		05C96CD017B0420F001B1CDF /* TCAHPTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C96CCF17B0420F001B1CDF /* TCAHPTransport.m */; };
-		05C96CD417B04AD5001B1CDF /* TCAHPAsyncSocketTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C96CD317B04AD5001B1CDF /* TCAHPAsyncSocketTransport.m */; };
+		05C96CD917B05C17001B1CDF /* TCAHPAsyncSocketTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C96CD617B05C17001B1CDF /* TCAHPAsyncSocketTransport.m */; };
+		05C96CDA17B05C17001B1CDF /* TCAHPTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C96CD817B05C17001B1CDF /* TCAHPTransport.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,10 +54,10 @@
 		05BA81DC14ABBB42003E10FB /* DemoClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClient.h; sourceTree = "<group>"; };
 		05BA81DD14ABBB42003E10FB /* DemoClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClient.m; sourceTree = "<group>"; };
 		05BA81DF14ABBC57003E10FB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		05C96CCE17B0420F001B1CDF /* TCAHPTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAHPTransport.h; sourceTree = "<group>"; };
-		05C96CCF17B0420F001B1CDF /* TCAHPTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAHPTransport.m; sourceTree = "<group>"; };
-		05C96CD217B04AD5001B1CDF /* TCAHPAsyncSocketTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAHPAsyncSocketTransport.h; sourceTree = "<group>"; };
-		05C96CD317B04AD5001B1CDF /* TCAHPAsyncSocketTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAHPAsyncSocketTransport.m; sourceTree = "<group>"; };
+		05C96CD517B05C17001B1CDF /* TCAHPAsyncSocketTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPAsyncSocketTransport.h; path = ../../TCAHPAsyncSocketTransport.h; sourceTree = "<group>"; };
+		05C96CD617B05C17001B1CDF /* TCAHPAsyncSocketTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPAsyncSocketTransport.m; path = ../../TCAHPAsyncSocketTransport.m; sourceTree = "<group>"; };
+		05C96CD717B05C17001B1CDF /* TCAHPTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPTransport.h; path = ../../TCAHPTransport.h; sourceTree = "<group>"; };
+		05C96CD817B05C17001B1CDF /* TCAHPTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPTransport.m; path = ../../TCAHPTransport.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,16 +110,16 @@
 				05BA81DD14ABBB42003E10FB /* DemoClient.m */,
 				05BA81BC14AB6713003E10FB /* AsyncSocket.h */,
 				05BA81BD14AB6713003E10FB /* AsyncSocket.m */,
-				05C96CCE17B0420F001B1CDF /* TCAHPTransport.h */,
-				05C96CCF17B0420F001B1CDF /* TCAHPTransport.m */,
-				05C96CD217B04AD5001B1CDF /* TCAHPAsyncSocketTransport.h */,
-				05C96CD317B04AD5001B1CDF /* TCAHPAsyncSocketTransport.m */,
 				05BA81C114AB671C003E10FB /* TCAsyncHashProtocol.h */,
 				05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */,
 				05715BC9161FBC9C0023B321 /* TCAHPSimpleServer.h */,
 				05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */,
 				05715BFE161FC3070023B321 /* TCAHPSimpleClient.h */,
 				05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */,
+				05C96CD517B05C17001B1CDF /* TCAHPAsyncSocketTransport.h */,
+				05C96CD617B05C17001B1CDF /* TCAHPAsyncSocketTransport.m */,
+				05C96CD717B05C17001B1CDF /* TCAHPTransport.h */,
+				05C96CD817B05C17001B1CDF /* TCAHPTransport.m */,
 				05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */,
 				05BA81B314AB66F7003E10FB /* Supporting Files */,
 			);
@@ -184,11 +184,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05C96CD417B04AD5001B1CDF /* TCAHPAsyncSocketTransport.m in Sources */,
 				05BA81B214AB66F7003E10FB /* main.m in Sources */,
 				05BA81BE14AB6713003E10FB /* AsyncSocket.m in Sources */,
+				05C96CD917B05C17001B1CDF /* TCAHPAsyncSocketTransport.m in Sources */,
 				05BA81C414AB671C003E10FB /* TCAsyncHashProtocol.m in Sources */,
-				05C96CD017B0420F001B1CDF /* TCAHPTransport.m in Sources */,
+				05C96CDA17B05C17001B1CDF /* TCAHPTransport.m in Sources */,
 				05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */,
 				05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */,
 				05715BCB161FBC9C0023B321 /* TCAHPSimpleServer.m in Sources */,
