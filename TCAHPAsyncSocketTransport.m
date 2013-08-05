@@ -59,4 +59,9 @@
 	[self.delegate transport:self didReadData:data withTag:tag];
 }
 
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"<%@ @ %p - %@>", NSStringFromClass([self class]), self, _socket];
+}
+
 @end
