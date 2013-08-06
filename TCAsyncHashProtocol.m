@@ -225,14 +225,17 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 	NSData *unthing = [self serialize:hash];
 	
 	TCLog(@"OUT %@: %@ %@", [hash objectForKey:kTCAsyncHashProtocolRequestKey]?@"REQU":[hash objectForKey:kTCAsyncHashProtocolResponseKey]?@"RESP":@"COMM", [hash objectForKey:kTCCommand], [hash objectForKey:kTCAsyncHashProtocolRequestKey]?:[hash objectForKey:kTCAsyncHashProtocolResponseKey]);
-
+	
+	NSMutableData *toSend = [[NSMutableData alloc] initWithCapacity:4 + unthing.length + payload.length];
 	
 	uint32_t writeLength = htonl(unthing.length);
-	NSData *lengthD = [NSData dataWithBytes:&writeLength length:4];
-	[_transport writeData:lengthD withTimeout:-1];
+	[toSend appendBytes:&writeLength length:4];
 	
-	[_transport writeData:unthing withTimeout:-1];
-	if(payload) [_transport writeData:payload withTimeout:-1];
+	[toSend appendData:unthing];
+	if(payload)
+		[toSend appendData:payload];
+
+	[_transport writeData:toSend withTimeout:-1];
 }
 -(TCAsyncHashProtocolRequestCanceller)requestHash:(NSDictionary*)hash response:(TCAsyncHashProtocolResponseCallback)response;
 {
