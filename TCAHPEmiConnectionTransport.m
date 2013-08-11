@@ -1,6 +1,19 @@
 #import "TCAHPEmiConnectionTransport.h"
 
+@interface TCAHPEReadRequest : NSObject
+@property(nonatomic) NSUInteger length;
+@property(nonatomic) long tag;
+- (id)initWithLength:(NSUInteger)length tag:(long)tag;
+@end
+@implementation TCAHPEReadRequest
+- (id)initWithLength:(NSUInteger)length tag:(long)tag { if(self = [super init]) { _length = length; _tag = tag; } return self; }
+@end
+
 @interface TCAHPEmiConnectionTransport () <EmiConnectionDelegate>
+{
+	NSMutableArray *_readRequests;
+	NSMutableData *_incomingBuffer;
+}
 
 @end
 
@@ -8,6 +21,8 @@
 - (id)initWithConnection:(EmiConnection*)connection
 {
 	if(self = [super init]) {
+		_readRequests = [NSMutableArray new];
+		_incomingBuffer = [[NSMutableData alloc] init];
 		_connection = connection;
 		[_connection setDelegate:self delegateQueue:dispatch_get_main_queue()];
 	}
@@ -16,22 +31,39 @@
 
 - (void)readDataToLength:(NSUInteger)length withTimeout:(NSTimeInterval)timeout tag:(long)tag
 {
-
+	[_readRequests addObject:[[TCAHPEReadRequest alloc] initWithLength:length tag:tag]];
+	[self handleReadRequests];
 }
 
 - (void)writeData:(NSData*)data withTimeout:(NSTimeInterval)timeout
 {
-
+	NSError *err;
+	BOOL success = [_connection send:data channelQualifier:EMI_CHANNEL_QUALIFIER_DEFAULT error:&err];
+	(void)success;
+	NSAssert(success == YES, @"Can't handle socket write failure %@", err);
 }
 
 - (void)disconnect
 {
-
+	[_connection close];
 }
 
 - (BOOL)isConnected
 {
 	return _connection.open;
+}
+
+- (void)handleReadRequests
+{
+	TCAHPEReadRequest *req = _readRequests.firstObject;
+	while(req && req.length <= _incomingBuffer.length) {
+		[_readRequests removeObjectAtIndex:0];
+		
+		NSData *chunk = [_incomingBuffer subdataWithRange:NSMakeRange(0, req.length)];
+		[_incomingBuffer setData:[_incomingBuffer subdataWithRange:NSMakeRange(req.length, _incomingBuffer.length - req.length)]];
+		[self.delegate transport:self didReadData:chunk withTag:req.tag];
+		req = _readRequests.firstObject;
+	}
 }
 
 
@@ -61,7 +93,8 @@
 
 - (void)emiConnectionMessage:(EmiConnection *)connection channelQualifier:(EmiChannelQualifier)channelQualifier data:(NSData *)data;
 {
-	[self.delegate transport:self didReadData:data withTag:<#(long)#>]
+	[_incomingBuffer appendData:data];
+	[self handleReadRequests];
 }
 
 @end
