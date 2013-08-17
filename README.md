@@ -15,6 +15,9 @@ It is an embarrassment and almost an insult that my example project is a
 massive 200 lines. I hope to be able to reduce the verbosity and boilerplate
 clutter of using TCAHP without making it heavy-weight.
 
+Example
+-------
+
 An example of using TCAHP to send a request to update the server's MOTD:
 
 <pre><code>[_proto requestHash:@{
@@ -53,3 +56,31 @@ message. I quite like it.)
 As you can see, the resulting protocol is very weakly typed. In theory,
 this means you will be making typos and not understanding why the hell
 your network seems broken; in reality, I've never had that problem.
+
+Installation
+------------
+
+To use TCAHP with AsyncSocket, add these files to your project:
+
+* TCAsyncHashProtocol.{h|m}
+* TCAHPTransport.{h|m}
+* TCAHPAsyncSocketTransport.{h|m}
+
+To use TCAHP with Eminet (a UDP network library for game networking), replace
+TCAHPAsyncSocketTransport with TCAHPEmiConnectionTransport.
+
+What's up with the "Transport" abstraction?
+-------------------------------------------
+
+TCAHP used to be a single file. That was nice. However, I want to be able to use
+the same protocl over multiple different transports. To start off, I'd love to
+be able to use UDP in a game engine, but I don't want to break other usages of TCAHP
+which wants to use it over TCP. The nicest (but not very nice) design I came up with
+was to add a layer between the TCAHP and the socket — thus, the transport. Adding layers
+to a design is often an antipattern (particularly when it's just a binding layer that
+adds very little in terms of abstraction). If you have a better design, please let me know.
+
+If you wish to use TCAHP as a single class with as little fuzz as possible, git tag "1.0.0"
+is stable and easy to use, and "1.1.0" is the last 1.x release that retains this API.
+
+
