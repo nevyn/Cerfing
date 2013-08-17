@@ -63,7 +63,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 
 -(id)initWithSocket:(AsyncSocket*)sock delegate:(id<TCAsyncHashProtocolDelegate>)delegate
 {
-	return [self initWithTransport:[[NSClassFromString(@"TCAHPAsyncSocketTransport") alloc] initWithSocket:sock] delegate:delegate];
+	return [self initWithTransport:[(TCAHPAsyncSocketTransport*)[NSClassFromString(@"TCAHPAsyncSocketTransport") alloc] initWithSocket:sock delegate:self] delegate:delegate];
 }
 
 -(void)dealloc;

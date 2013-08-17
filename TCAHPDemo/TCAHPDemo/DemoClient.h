@@ -1,6 +1,6 @@
 #import "TCAsyncHashProtocol.h"
 
-@interface DemoClient : NSObject <TCAsyncHashProtocolDelegate>
+@interface DemoClient : NSObject
 @property(copy) NSString *host;
 @property(copy) NSString *messageToSet;
 @property(nonatomic) Class transportClass;

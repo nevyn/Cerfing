@@ -1,34 +1,37 @@
 #import "DemoClient.h"
+#import "TCAHPTransport.h"
 
-@implementation DemoClient {
-	AsyncSocket *_socket;
+@interface DemoClient ()  <TCAsyncHashProtocolDelegate, TCAHPTransportDelegate>
+{
+	TCAHPTransport *_transport;
 	TCAsyncHashProtocol *_proto;
 }
+@end
+
+@implementation DemoClient
 @synthesize host=_host;
 @synthesize messageToSet=_messageToSet;
 -init;
 {
 	if(!(self = [super init])) return nil;
 	
-	_socket = [[AsyncSocket alloc] initWithDelegate:self];
-	
 	return self;
 }
 -(void)run;
 {
 	NSLog(@"Client connecting to %@", _host);
-	[_socket connectToHost:_host onPort:kPort error:nil];
+	// Exactly equivalent to  [[[AsyncSocket alloc] initWithDelegate:self] connectToHost:_host onPort:kPort error:nil]
+	_transport = [[self.transportClass alloc] initConnectingToHost:_host port:kPort delegate:self];
 }
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port;
+- (void)transportDidConnect:(TCAHPTransport*)transport;
 {
-	_proto = [[TCAsyncHashProtocol alloc] initWithSocket:sock delegate:self];
+	_proto = [[TCAsyncHashProtocol alloc] initWithTransport:transport delegate:self];
 	
 	// Dispatch on selector of the incoming command instead of using delegate methods.
 	_proto.autoDispatchCommands = YES;
 	
 	// Start reading from the socket.
 	[_proto readHash];
-	
 	
 	if(_messageToSet)
 		[_proto requestHash:@{
@@ -41,7 +44,11 @@
 				NSLog(@"Couldn't set message :( %@", response[@"reason"]);
 			exit(0);
 		}];
+}
 
+- (void)transport:(TCAHPTransport *)transport willDisconnectWithError:(NSError *)err
+{
+	NSLog(@"Client transport disconnection: %@", err);
 }
 
 -(void)command:(TCAsyncHashProtocol*)proto displayMessage:(NSDictionary*)hash;

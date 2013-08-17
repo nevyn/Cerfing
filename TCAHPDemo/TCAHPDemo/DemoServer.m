@@ -1,45 +1,57 @@
 #import "DemoServer.h"
+#import "TCAHPTransport.h"
 
-@implementation DemoServer {
-	AsyncSocket *_listen;
+@interface DemoServer () <TCAsyncHashProtocolDelegate, TCAHPTransportDelegate>
+{
+	TCAHPTransport *_listen;
 	NSMutableArray *_clients;
 	NSTimer *_timer;
 	NSString *_message;
 }
+@end
+
+@implementation DemoServer
 -init;
 {
 	if(!(self = [super init])) return nil;
-	_listen = [[AsyncSocket alloc] initWithDelegate:self];
 	_clients = [NSMutableArray new];
 	_message = @"Hello world!";
-	NSLog(@"Server listening");
 	
 	_timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(scheduledBroadcast) userInfo:nil repeats:YES];
 	
 	return self;
 }
+
 -(void)run;
 {
-	NSError *err = nil;
-	NSAssert(
-		[_listen acceptOnPort:kPort error:&err] == YES,
-		@"Failed to listen on port %d: %@", kPort, err
-	);
+	// Exactly equivalent to [[[AsyncSocket alloc] initWithDelegate:self] acceptOnPort:kPort error:NULL]
+	_listen = [[self.transportClass alloc] initListeningOnPort:kPort delegate:self];
+	NSLog(@"Server listening");
 }
-- (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket;
+
+- (void)listeningTransport:(TCAHPTransport*)listener acceptedConnection:(TCAHPTransport*)incoming
 {
 	// The TCAHP takes ownership of the socket and becomes its delegate. We only need to implement
 	// TCAHP's delegate now.
-	TCAsyncHashProtocol *proto = [[TCAsyncHashProtocol alloc] initWithSocket:newSocket delegate:self];
+	TCAsyncHashProtocol *proto = [[TCAsyncHashProtocol alloc] initWithTransport:incoming delegate:self];
 	
 	// Dispatch on selector of the incoming command instead of using delegate methods.
 	proto.autoDispatchCommands = YES;
 	
-	NSLog(@"Server accepted new socket %@", newSocket);
+	NSLog(@"Server accepted new socket %@", incoming);
 	
 	// Hang on to it, or else it has no owner and will disconnect.
 	[_clients addObject:proto];
 }
+
+- (void)transport:(TCAHPTransport *)transport willDisconnectWithError:(NSError *)err
+{
+    if(transport == _listen)
+		NSLog(@"Listen error: %@", err);
+	else
+		NSLog(@"Client %@ error: %@", transport, err);
+}
+
 - (void)transportDidDisconnect:(TCAHPTransport*)transport
 {
 	TCAsyncHashProtocol *proto = nil;

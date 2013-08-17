@@ -6,11 +6,43 @@
 @implementation TCAHPAsyncSocketTransport
 @synthesize socket = _socket;
 
-- (id)initWithSocket:(AsyncSocket*)socket
+- (id)initListeningOnPort:(int)port delegate:(id<TCAHPTransportDelegate>)delegate
+{
+	if(!(self = [self initWithSocket:[[AsyncSocket alloc] initWithDelegate:self] delegate:delegate]))
+		return nil;
+	
+	NSError *err;
+	if(![_socket acceptOnPort:port error:&err]) {
+		if([delegate respondsToSelector:@selector(transport:willDisconnectWithError:)])
+			[delegate transport:self willDisconnectWithError:err];
+		return nil;
+	}
+	
+	return self;
+}
+
+- (id)initConnectingToHost:(NSString*)host port:(int)port delegate:(id<TCAHPTransportDelegate>)delegate
+{
+	if(!(self = [self initWithSocket:[[AsyncSocket alloc] initWithDelegate:self] delegate:delegate]))
+		return nil;
+	
+	NSError *err;
+	if(![_socket connectToHost:host onPort:port error:&err]) {
+		if([delegate respondsToSelector:@selector(transport:willDisconnectWithError:)])
+			[delegate transport:self willDisconnectWithError:err];
+		return nil;
+	}
+	
+	return self;
+}
+
+
+- (id)initWithSocket:(AsyncSocket*)socket delegate:(id<TCAHPTransportDelegate>)delegate
 {
 	if(self = [super init]) {
 		_socket = socket;
 		_socket.delegate = self;
+		self.delegate = delegate;
 	}
 	return self;
 }
@@ -35,12 +67,38 @@
 	return [_socket isConnected];
 }
 
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"<%@ @ %p - %@>", NSStringFromClass([self class]), self, _socket];
+}
+
+#pragma mark AsyncSocket delegates
+
+- (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket
+{
+	if([self.delegate respondsToSelector:_cmd])
+		[(id)self.delegate onSocket:sock didAcceptNewSocket:newSocket];
+	
+	if([self.delegate respondsToSelector:@selector(listeningTransport:acceptedConnection:)]) {
+		TCAHPAsyncSocketTransport *newTransport = [[TCAHPAsyncSocketTransport alloc] initWithSocket:newSocket delegate:self.delegate];
+		[self.delegate listeningTransport:self acceptedConnection:newTransport];
+	}
+}
+
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
 	if([self.delegate respondsToSelector:_cmd])
 		[(id)self.delegate onSocket:sock didConnectToHost:host port:port];
-	
-	[self.delegate transportDidConnect:self];
+	if([self.delegate respondsToSelector:@selector(transportDidConnect:)])
+		[self.delegate transportDidConnect:self];
+}
+
+- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
+{
+	if([self.delegate respondsToSelector:_cmd])
+		[(id)self.delegate onSocket:sock willDisconnectWithError:err];
+	if([self.delegate respondsToSelector:@selector(transport:willDisconnectWithError:)])
+		[self.delegate transport:self willDisconnectWithError:err];
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
@@ -55,13 +113,8 @@
 {
 	if([self.delegate respondsToSelector:_cmd])
 		[(id)self.delegate onSocket:sock didReadData:data withTag:tag];
-	
-	[self.delegate transport:self didReadData:data withTag:tag];
-}
-
-- (NSString*)description
-{
-	return [NSString stringWithFormat:@"<%@ @ %p - %@>", NSStringFromClass([self class]), self, _socket];
+	if([self.delegate respondsToSelector:@selector(transport:didReadData:withTag:)])
+		[self.delegate transport:self didReadData:data withTag:tag];
 }
 
 @end

@@ -31,6 +31,9 @@
 		051FE3EF17B8434F002B2CF8 /* EmiSocketUserDataWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 051FE3DC17B8434F002B2CF8 /* EmiSocketUserDataWrapper.mm */; };
 		055A354517B843D900678EB3 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A354417B843D900678EB3 /* GCDAsyncUdpSocket.m */; };
 		055A354B17B8441400678EB3 /* TCAHPEmiConnectionTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A354A17B8441400678EB3 /* TCAHPEmiConnectionTransport.m */; };
+		055A354C17B958B700678EB3 /* TCAHPTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C96CD817B05C17001B1CDF /* TCAHPTransport.m */; };
+		055A354D17B9651100678EB3 /* DemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81D914ABBB39003E10FB /* DemoServer.m */; };
+		055A354E17B9651100678EB3 /* DemoClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81DD14ABBB42003E10FB /* DemoClient.m */; };
 		05715BCB161FBC9C0023B321 /* TCAHPSimpleServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */; };
 		05715C00161FC3070023B321 /* TCAHPSimpleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */; };
 		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
@@ -437,17 +440,20 @@
 				051FE3E317B8434F002B2CF8 /* EmiPacketHeader.cc in Sources */,
 				055A354517B843D900678EB3 /* GCDAsyncUdpSocket.m in Sources */,
 				051FE3E917B8434F002B2CF8 /* EmiDispatchQueueWrapper.m in Sources */,
+				055A354C17B958B700678EB3 /* TCAHPTransport.m in Sources */,
 				051FE3E717B8434F002B2CF8 /* EmiConnection.mm in Sources */,
 				051FE3E417B8434F002B2CF8 /* EmiRC4.cc in Sources */,
 				051FE3E017B8434F002B2CF8 /* EmiLossList.cc in Sources */,
 				051FE3DF17B8434F002B2CF8 /* EmiLinkCapacity.cc in Sources */,
 				051FE3EF17B8434F002B2CF8 /* EmiSocketUserDataWrapper.mm in Sources */,
+				055A354E17B9651100678EB3 /* DemoClient.m in Sources */,
 				051FE3DE17B8434F002B2CF8 /* EmiDataArrivalRate.cc in Sources */,
 				051FE3EB17B8434F002B2CF8 /* EmiP2PSocketConfig.mm in Sources */,
 				051FE3E817B8434F002B2CF8 /* EmiConnectionOpenedBlockWrapper.m in Sources */,
 				051FE3E517B8434F002B2CF8 /* EmiBinding.mm in Sources */,
 				051FE3E117B8434F002B2CF8 /* EmiMessageHeader.cc in Sources */,
 				051FE3EC17B8434F002B2CF8 /* EmiSockDelegate.mm in Sources */,
+				055A354D17B9651100678EB3 /* DemoServer.m in Sources */,
 				051FE3ED17B8434F002B2CF8 /* EmiSocket.mm in Sources */,
 				051FE3EA17B8434F002B2CF8 /* EmiDispatchTimer.mm in Sources */,
 				051FE3E617B8434F002B2CF8 /* EmiConnDelegate.mm in Sources */,
