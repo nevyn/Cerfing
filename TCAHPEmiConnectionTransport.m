@@ -1,4 +1,6 @@
 #import "TCAHPEmiConnectionTransport.h"
+#import "EmiSocket.h"
+#import "EmiSocketConfig.h"
 
 @interface TCAHPEReadRequest : NSObject
 @property(nonatomic) NSUInteger length;
@@ -9,23 +11,78 @@
 - (id)initWithLength:(NSUInteger)length tag:(long)tag { if(self = [super init]) { _length = length; _tag = tag; } return self; }
 @end
 
-@interface TCAHPEmiConnectionTransport () <EmiConnectionDelegate>
+@interface TCAHPEmiConnectionTransport () <EmiConnectionDelegate, EmiSocketDelegate>
 {
 	NSMutableArray *_readRequests;
 	NSMutableData *_incomingBuffer;
+	EmiSocketConfig *_listenConfig;
+	EmiSocket *_socket;
 }
 
 @end
 
 @implementation TCAHPEmiConnectionTransport
-- (id)initWithConnection:(EmiConnection*)connection
+- (id)initWithConnection:(EmiConnection*)connection delegate:(id<TCAHPTransportDelegate>)delegate
 {
 	if(self = [super init]) {
+		self.delegate = delegate;
 		_readRequests = [NSMutableArray new];
 		_incomingBuffer = [[NSMutableData alloc] init];
 		_connection = connection;
 		[_connection setDelegate:self delegateQueue:dispatch_get_main_queue()];
 	}
+	return self;
+}
+
+- (id)initListeningOnPort:(int)port delegate:(id<TCAHPTransportDelegate>)delegate
+{
+	if(!(self = [super init]))
+		return nil;
+		
+	self.delegate = delegate;
+	
+	_listenConfig = [EmiSocketConfig new];
+	_listenConfig.acceptConnections = YES;
+	_listenConfig.serverPort = port;
+	if(![self listenAgain])
+		return nil;
+	
+	return self;
+}
+
+- (BOOL)listenAgain
+{
+	_socket = [[EmiSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+	
+	NSError *err;
+	if(![_socket startWithConfig:_listenConfig error:&err]) {
+		[self.delegate transport:self willDisconnectWithError:err];
+		return NO;
+	}
+	return YES;
+}
+
+- (id)initConnectingToHost:(NSString*)host port:(int)port delegate:(id<TCAHPTransportDelegate>)delegate
+{
+	if(!(self = [super init]))
+		return nil;
+	
+	_socket = [[EmiSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+	self.delegate = delegate;
+
+	NSError *err;
+	if(![_socket startWithError:&err]) {
+		if([self.delegate respondsToSelector:@selector(transport:willDisconnectWithError:)])
+			[self.delegate transport:self willDisconnectWithError:err];
+		return nil;
+	}
+	
+	if(![_socket connectToHost:host onPort:port delegate:self delegateQueue:dispatch_get_main_queue() userData:nil error:&err]) {
+		if([self.delegate respondsToSelector:@selector(transport:willDisconnectWithError:)])
+			[self.delegate transport:self willDisconnectWithError:err];
+		return nil;
+	}
+	
 	return self;
 }
 
@@ -61,18 +118,38 @@
 		
 		NSData *chunk = [_incomingBuffer subdataWithRange:NSMakeRange(0, req.length)];
 		[_incomingBuffer setData:[_incomingBuffer subdataWithRange:NSMakeRange(req.length, _incomingBuffer.length - req.length)]];
-		[self.delegate transport:self didReadData:chunk withTag:req.tag];
+		if([self.delegate respondsToSelector:@selector(transport:didReadData:withTag:)])
+			[self.delegate transport:self didReadData:chunk withTag:req.tag];
 		req = _readRequests.firstObject;
 	}
 }
 
+#pragma mark EmiSocket delegates
+- (void)emiSocket:(EmiSocket *)socket gotConnection:(EmiConnection *)connection
+{
+	if(_listenConfig) {
+		
+		TCAHPEmiConnectionTransport *incomingTransport = [[TCAHPEmiConnectionTransport alloc] initWithConnection:connection delegate:self.delegate];
+		[self.delegate listeningTransport:self acceptedConnection:incomingTransport];
+		
+		//[self listenAgain];
+	} else { // connecting
+		(void)[self initWithConnection:connection delegate:self.delegate];
+		
+		// TODO: figure out if this is needed, or if emiConnectionOpened: is used instead
+		/*if([self.delegate respondsToSelector:@selector(transportDidConnect:)])
+			[self.delegate transportDidConnect:self];*/
+	}
+}
+
+#pragma mark EmiConnection delegates
 
 - (void)emiConnectionOpened:(EmiConnection *)connection userData:(id)userData
 {
 	if([self.delegate respondsToSelector:_cmd])
 		[(id)self.delegate emiConnectionOpened:connection userData:userData];
-	
-	[self.delegate transportDidConnect:self];
+	if([self.delegate respondsToSelector:@selector(transportDidConnect:)])
+		[self.delegate transportDidConnect:self];
 }
 
 - (void)emiConnectionFailedToConnect:(EmiSocket *)socket error:(NSError *)error userData:(id)userData
