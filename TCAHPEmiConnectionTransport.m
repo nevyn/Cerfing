@@ -15,7 +15,8 @@
 {
 	NSMutableArray *_readRequests;
 	NSMutableData *_incomingBuffer;
-	EmiSocketConfig *_listenConfig;
+	int _listenPort;
+	BOOL _isListening;
 	EmiSocket *_socket;
 }
 
@@ -40,25 +41,29 @@
 		return nil;
 		
 	self.delegate = delegate;
-	
-	_listenConfig = [EmiSocketConfig new];
-	_listenConfig.acceptConnections = YES;
-	_listenConfig.serverPort = port;
-	if(![self listenAgain])
+	_isListening = YES;
+	_listenPort = port;
+	if(![self startListening])
 		return nil;
 	
 	return self;
 }
 
-- (BOOL)listenAgain
+- (BOOL)startListening
 {
+	NSLog(@"TCAHPECT about to listen");
+	EmiSocketConfig *listenConfig = [EmiSocketConfig new];
+	listenConfig.acceptConnections = YES;
+	listenConfig.serverPort = _listenPort;
 	_socket = [[EmiSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
 	
 	NSError *err;
-	if(![_socket startWithConfig:_listenConfig error:&err]) {
+	if(![_socket startWithConfig:listenConfig error:&err]) {
 		[self.delegate transport:self willDisconnectWithError:err];
 		return NO;
 	}
+	
+	NSLog(@"TCAHPECT listening");
 	return YES;
 }
 
@@ -67,11 +72,13 @@
 	if(!(self = [super init]))
 		return nil;
 	
-	_socket = [[EmiSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
 	self.delegate = delegate;
-
+	_socket = [[EmiSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+	
 	NSError *err;
-	if(![_socket startWithError:&err]) {
+	
+	EmiSocketConfig *connectionConfig = [EmiSocketConfig new];
+	if(![_socket startWithConfig:connectionConfig error:&err]) {
 		if([self.delegate respondsToSelector:@selector(transport:willDisconnectWithError:)])
 			[self.delegate transport:self willDisconnectWithError:err];
 		return nil;
@@ -127,25 +134,21 @@
 #pragma mark EmiSocket delegates
 - (void)emiSocket:(EmiSocket *)socket gotConnection:(EmiConnection *)connection
 {
-	if(_listenConfig) {
+	NSAssert(_isListening, @"Should only get connection if listen");
 		
-		TCAHPEmiConnectionTransport *incomingTransport = [[TCAHPEmiConnectionTransport alloc] initWithConnection:connection delegate:self.delegate];
-		[self.delegate listeningTransport:self acceptedConnection:incomingTransport];
-		
-		//[self listenAgain];
-	} else { // connecting
-		(void)[self initWithConnection:connection delegate:self.delegate];
-		
-		// TODO: figure out if this is needed, or if emiConnectionOpened: is used instead
-		/*if([self.delegate respondsToSelector:@selector(transportDidConnect:)])
-			[self.delegate transportDidConnect:self];*/
-	}
+	TCAHPEmiConnectionTransport *incomingTransport = [[TCAHPEmiConnectionTransport alloc] initWithConnection:connection delegate:self.delegate];
+	[self.delegate listeningTransport:self acceptedConnection:incomingTransport];
+	
+	[self startListening];
 }
 
 #pragma mark EmiConnection delegates
 
 - (void)emiConnectionOpened:(EmiConnection *)connection userData:(id)userData
 {
+	NSAssert(!_isListening, @"Should only get connection opened if not listen");
+	(void)[self initWithConnection:connection delegate:self.delegate];
+	
 	if([self.delegate respondsToSelector:_cmd])
 		[(id)self.delegate emiConnectionOpened:connection userData:userData];
 	if([self.delegate respondsToSelector:@selector(transportDidConnect:)])
@@ -156,14 +159,27 @@
 {
 	if([self.delegate respondsToSelector:_cmd])
 		[(id)self.delegate emiConnectionFailedToConnect:socket error:error userData:userData];
-	if([self.delegate respondsToSelector:@selector(transportDidDisconnect:)])
-		[self.delegate transportDidDisconnect:self];
+	if([self.delegate respondsToSelector:@selector(transport:willDisconnectWithError:)])
+		[self.delegate transport:self willDisconnectWithError:error];
 }
 
 - (void)emiConnectionDisconnect:(EmiConnection *)connection forReason:(EmiDisconnectReason)reason
 {
 	if([self.delegate respondsToSelector:_cmd])
 		[(id)self emiConnectionDisconnect:connection forReason:reason];
+	if([self.delegate respondsToSelector:@selector(transport:willDisconnectWithError:)])
+		[self.delegate transport:self willDisconnectWithError:[NSError
+			errorWithDomain:@"eminet.reason"
+			code:reason
+			userInfo:@{
+				NSLocalizedDescriptionKey:
+					reason==EMI_REASON_THIS_HOST_CLOSED ? @"this host closed" :
+					reason==EMI_REASON_OTHER_HOST_CLOSED ? @"other host closed" :
+					reason==EMI_REASON_CONNECTION_TIMED_OUT? @"timeout" :
+					reason==EMI_REASON_OTHER_HOST_DID_NOT_RESPOND ? @"other host did not respond" :
+					@"unknown"
+			}
+		]];
 	if([self.delegate respondsToSelector:@selector(transportDidDisconnect:)])
 		[self.delegate transportDidDisconnect:self];
 }

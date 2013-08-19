@@ -25,6 +25,7 @@
 }
 - (void)transportDidConnect:(TCAHPTransport*)transport;
 {
+	NSLog(@"Client connected!");
 	_proto = [[TCAsyncHashProtocol alloc] initWithTransport:transport delegate:self];
 	
 	// Dispatch on selector of the incoming command instead of using delegate methods.

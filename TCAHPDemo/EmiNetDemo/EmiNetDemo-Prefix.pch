@@ -8,4 +8,4 @@
 	#import <Foundation/Foundation.h>
 #endif
 
-#define kPort 12345
+#define kPort 5442

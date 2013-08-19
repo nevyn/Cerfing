@@ -26,7 +26,7 @@
 {
 	// Exactly equivalent to [[[AsyncSocket alloc] initWithDelegate:self] acceptOnPort:kPort error:NULL]
 	_listen = [[self.transportClass alloc] initListeningOnPort:kPort delegate:self];
-	NSLog(@"Server listening");
+	NSLog(@"Server running");
 }
 
 - (void)listeningTransport:(TCAHPTransport*)listener acceptedConnection:(TCAHPTransport*)incoming
