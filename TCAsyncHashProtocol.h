@@ -88,7 +88,7 @@ typedef void(^TCAsyncHashProtocolRequestCanceller)();
 	@note If you have set autoReadHash to NO, call readHash some time after receiving any of these
 	      callbacks in order to continue receiving hashes.
 */
-@protocol TCAsyncHashProtocolDelegate <NSObject>
+@protocol TCAsyncHashProtocolDelegate <NSObject, TCAHPTransportDelegate>
 @required
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedHash:(NSDictionary*)hash payload:(NSData*)payload;
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;
