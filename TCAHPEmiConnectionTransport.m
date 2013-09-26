@@ -119,7 +119,7 @@
 
 - (void)handleReadRequests
 {
-	TCAHPEReadRequest *req = _readRequests.firstObject;
+	TCAHPEReadRequest *req = _readRequests.count ? _readRequests[0] : nil;
 	while(req && req.length <= _incomingBuffer.length) {
 		[_readRequests removeObjectAtIndex:0];
 		
@@ -127,7 +127,7 @@
 		[_incomingBuffer setData:[_incomingBuffer subdataWithRange:NSMakeRange(req.length, _incomingBuffer.length - req.length)]];
 		if([self.delegate respondsToSelector:@selector(transport:didReadData:withTag:)])
 			[self.delegate transport:self didReadData:chunk withTag:req.tag];
-		req = _readRequests.firstObject;
+		req = _readRequests.count ? _readRequests[0] : nil;
 	}
 }
 
@@ -138,8 +138,6 @@
 		
 	TCAHPEmiConnectionTransport *incomingTransport = [[TCAHPEmiConnectionTransport alloc] initWithConnection:connection delegate:self.delegate];
 	[self.delegate listeningTransport:self acceptedConnection:incomingTransport];
-	
-	[self startListening];
 }
 
 #pragma mark EmiConnection delegates

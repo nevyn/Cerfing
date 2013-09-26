@@ -19,7 +19,7 @@ int main (int argc, const char * argv[])
 		
 		DemoClient *client = [DemoClient new];
 		client.transportClass = [TCAHPEmiConnectionTransport class];
-		client.host = argc>=2?@(argv[1]):@"10.0.1.2";
+		client.host = argc>=2?@(argv[1]):@"localhost";
 		client.messageToSet = argc>=3?@(argv[2]):nil;
 		[client run];
 		[[NSRunLoop currentRunLoop] run];
