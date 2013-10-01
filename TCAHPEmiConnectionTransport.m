@@ -1,6 +1,6 @@
 #import "TCAHPEmiConnectionTransport.h"
-#import "EmiSocket.h"
-#import "EmiSocketConfig.h"
+#import <EmiNet/EmiSocket.h>
+#import <EmiNet/EmiSocketConfig.h>
 
 @interface TCAHPEReadRequest : NSObject
 @property(nonatomic) NSUInteger length;
