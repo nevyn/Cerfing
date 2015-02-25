@@ -138,11 +138,14 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 			[self sendHash:resp2];
 		};
 		
-		NSString *selNs = [NSString stringWithFormat:@"request:%@:responder:", hash[@"command"]];
-		SEL sel = NSSelectorFromString(selNs);
+		SEL sel = NSSelectorFromString([NSString stringWithFormat:@"request:%@:responder:", hash[@"command"]]);
+		SEL payloadSel = NSSelectorFromString([NSString stringWithFormat:@"request:%@:responder:payload:", hash[@"command"]]);
 		
 		if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:sel]) {
             ((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash, cb);
+		} else 	if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:payloadSel]) {
+            ((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback, id))[(id)_delegate methodForSelector:payloadSel])(_delegate, sel, self, hash, cb, payload);
+
 		} else if([_delegate respondsToSelector:@selector(protocol:receivedRequest:payload:responder:)]) {
 			[_delegate protocol:self receivedRequest:hash payload:payload responder:cb];
         } else {
@@ -163,11 +166,13 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		
 		TCLog(@"INC COMM: %@", [hash objectForKey:kTCCommand]);
 		
-		NSString *selNs = [NSString stringWithFormat:@"command:%@:", command];
-		SEL sel = NSSelectorFromString(selNs);
+		SEL sel = NSSelectorFromString([NSString stringWithFormat:@"command:%@:", command]);
+		SEL payloadSel = NSSelectorFromString([NSString stringWithFormat:@"command:%@:payload:", command]);
 		
 		if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:sel]) {
             ((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
+		} else 	if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:payloadSel]) {
+            ((void(*)(id, SEL, id, id, id))[(id)_delegate methodForSelector:payloadSel])(_delegate, sel, self, hash, payload);
 		} else if([_delegate respondsToSelector:@selector(protocol:receivedHash:payload:)]) {
             [_delegate protocol:self receivedHash:hash payload:payload];
         } else {

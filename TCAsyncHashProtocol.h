@@ -75,8 +75,8 @@ typedef void(^TCAsyncHashProtocolRequestCanceller)();
 	@default NO
 	If the incoming hash has the key 'command', use its value as the name of the selector
 	to call instead of the delegate method, if implemented. Signature patterns, where %@ is the key:
-	For command: -(void)command:(TCAsyncHashProtocol*)proto %@:(NSDictionary*)hash
-	For request: -(void)request:(TCAsyncHashProtocol*)proto %@:(NSDictionary*)hash responder:(TCAsyncHashProtocolResponseCallback)callback
+	For command: -(void)command:(TCAsyncHashProtocol*)proto %@:(NSDictionary*)hash (optional payload:(NSData*)payload)
+	For request: -(void)request:(TCAsyncHashProtocol*)proto %@:(NSDictionary*)hash responder:(TCAsyncHashProtocolResponseCallback)callback (optional payload:(NSData*)payload)
 */
 @property(nonatomic) BOOL autoDispatchCommands;
 @end
@@ -89,7 +89,7 @@ typedef void(^TCAsyncHashProtocolRequestCanceller)();
 	      callbacks in order to continue receiving hashes.
 */
 @protocol TCAsyncHashProtocolDelegate <NSObject, TCAHPTransportDelegate>
-@required
+@optional
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedHash:(NSDictionary*)hash payload:(NSData*)payload;
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;
 
