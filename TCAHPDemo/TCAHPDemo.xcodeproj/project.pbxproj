@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		05715BCB161FBC9C0023B321 /* TCAHPSimpleServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */; };
 		05715C00161FC3070023B321 /* TCAHPSimpleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */; };
+		05B3790E1B2E8ACA002DFAE5 /* TCAHPPeerToPeerServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B3790D1B2E8ACA002DFAE5 /* TCAHPPeerToPeerServer.m */; };
 		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
 		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
 		05BA81B614AB66F7003E10FB /* TCAHPDemo.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */; };
@@ -40,6 +41,8 @@
 		05715BFE161FC3070023B321 /* TCAHPSimpleClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPSimpleClient.h; path = ../TCAHPSimpleClient.h; sourceTree = "<group>"; };
 		05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPSimpleClient.m; path = ../TCAHPSimpleClient.m; sourceTree = "<group>"; };
 		05AE47F917F4AA1D00A40A21 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		05B3790C1B2E8ACA002DFAE5 /* TCAHPPeerToPeerServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPPeerToPeerServer.h; path = ../TCAHPPeerToPeerServer.h; sourceTree = "<group>"; };
+		05B3790D1B2E8ACA002DFAE5 /* TCAHPPeerToPeerServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPPeerToPeerServer.m; path = ../TCAHPPeerToPeerServer.m; sourceTree = "<group>"; };
 		05BA81AA14AB66F7003E10FB /* TCAHPDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TCAHPDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		05BA81AE14AB66F7003E10FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05BA81B114AB66F7003E10FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 				05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */,
 				05715BFE161FC3070023B321 /* TCAHPSimpleClient.h */,
 				05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */,
+				05B3790C1B2E8ACA002DFAE5 /* TCAHPPeerToPeerServer.h */,
+				05B3790D1B2E8ACA002DFAE5 /* TCAHPPeerToPeerServer.m */,
 				05C96CD717B05C17001B1CDF /* TCAHPTransport.h */,
 				05C96CD817B05C17001B1CDF /* TCAHPTransport.m */,
 				05BA81BC14AB6713003E10FB /* AsyncSocket.h */,
@@ -203,6 +208,7 @@
 				05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */,
 				05715BCB161FBC9C0023B321 /* TCAHPSimpleServer.m in Sources */,
 				05715C00161FC3070023B321 /* TCAHPSimpleClient.m in Sources */,
+				05B3790E1B2E8ACA002DFAE5 /* TCAHPPeerToPeerServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
