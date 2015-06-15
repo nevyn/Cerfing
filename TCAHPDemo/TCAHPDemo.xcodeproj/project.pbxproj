@@ -45,8 +45,8 @@
 		05BA81B114AB66F7003E10FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		05BA81B414AB66F7003E10FB /* TCAHPDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TCAHPDemo-Prefix.pch"; sourceTree = "<group>"; };
 		05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = TCAHPDemo.1; sourceTree = "<group>"; };
-		05BA81BC14AB6713003E10FB /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
-		05BA81BD14AB6713003E10FB /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		05BA81BC14AB6713003E10FB /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncSocket.h; path = ../AsyncSocket.h; sourceTree = "<group>"; };
+		05BA81BD14AB6713003E10FB /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncSocket.m; path = ../AsyncSocket.m; sourceTree = "<group>"; };
 		05BA81C114AB671C003E10FB /* TCAsyncHashProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAsyncHashProtocol.h; path = ../TCAsyncHashProtocol.h; sourceTree = "<group>"; };
 		05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAsyncHashProtocol.m; path = ../TCAsyncHashProtocol.m; sourceTree = "<group>"; };
 		05BA81C514AB67AB003E10FB /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -55,8 +55,8 @@
 		05BA81DC14ABBB42003E10FB /* DemoClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoClient.h; path = TCAHPDemo/DemoClient.h; sourceTree = "<group>"; };
 		05BA81DD14ABBB42003E10FB /* DemoClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoClient.m; path = TCAHPDemo/DemoClient.m; sourceTree = "<group>"; };
 		05BA81DF14ABBC57003E10FB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		05C96CD517B05C17001B1CDF /* TCAHPAsyncSocketTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPAsyncSocketTransport.h; path = ../../TCAHPAsyncSocketTransport.h; sourceTree = "<group>"; };
-		05C96CD617B05C17001B1CDF /* TCAHPAsyncSocketTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPAsyncSocketTransport.m; path = ../../TCAHPAsyncSocketTransport.m; sourceTree = "<group>"; };
+		05C96CD517B05C17001B1CDF /* TCAHPAsyncSocketTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPAsyncSocketTransport.h; path = ../TCAHPAsyncSocketTransport.h; sourceTree = "<group>"; };
+		05C96CD617B05C17001B1CDF /* TCAHPAsyncSocketTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPAsyncSocketTransport.m; path = ../TCAHPAsyncSocketTransport.m; sourceTree = "<group>"; };
 		05C96CD717B05C17001B1CDF /* TCAHPTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPTransport.h; path = ../TCAHPTransport.h; sourceTree = "<group>"; };
 		05C96CD817B05C17001B1CDF /* TCAHPTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPTransport.m; path = ../TCAHPTransport.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,6 +89,10 @@
 				05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */,
 				05C96CD717B05C17001B1CDF /* TCAHPTransport.h */,
 				05C96CD817B05C17001B1CDF /* TCAHPTransport.m */,
+				05BA81BC14AB6713003E10FB /* AsyncSocket.h */,
+				05BA81BD14AB6713003E10FB /* AsyncSocket.m */,
+				05C96CD517B05C17001B1CDF /* TCAHPAsyncSocketTransport.h */,
+				05C96CD617B05C17001B1CDF /* TCAHPAsyncSocketTransport.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -126,10 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				05BA81B114AB66F7003E10FB /* main.m */,
-				05BA81BC14AB6713003E10FB /* AsyncSocket.h */,
-				05BA81BD14AB6713003E10FB /* AsyncSocket.m */,
-				05C96CD517B05C17001B1CDF /* TCAHPAsyncSocketTransport.h */,
-				05C96CD617B05C17001B1CDF /* TCAHPAsyncSocketTransport.m */,
 				05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */,
 				05BA81B314AB66F7003E10FB /* Supporting Files */,
 			);
