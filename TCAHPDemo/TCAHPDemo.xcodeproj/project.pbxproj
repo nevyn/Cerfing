@@ -7,14 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		051FE38C17B8432D002B2CF8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
-		055A354C17B958B700678EB3 /* TCAHPTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C96CD817B05C17001B1CDF /* TCAHPTransport.m */; };
-		055A354D17B9651100678EB3 /* DemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81D914ABBB39003E10FB /* DemoServer.m */; };
-		055A354E17B9651100678EB3 /* DemoClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81DD14ABBB42003E10FB /* DemoClient.m */; };
-		055A354F17BFBE7800678EB3 /* TCAsyncHashProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */; };
 		05715BCB161FBC9C0023B321 /* TCAHPSimpleServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */; };
 		05715C00161FC3070023B321 /* TCAHPSimpleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */; };
-		05AE47FA17F4AA1D00A40A21 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05AE47F917F4AA1D00A40A21 /* Security.framework */; };
 		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
 		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
 		05BA81B614AB66F7003E10FB /* TCAHPDemo.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */; };
@@ -28,15 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		051FE38917B8432D002B2CF8 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		05BA81A814AB66F7003E10FB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -50,7 +35,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		051FE38B17B8432D002B2CF8 /* EmiNetDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EmiNetDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		05715BC9161FBC9C0023B321 /* TCAHPSimpleServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPSimpleServer.h; path = ../TCAHPSimpleServer.h; sourceTree = "<group>"; };
 		05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPSimpleServer.m; path = ../TCAHPSimpleServer.m; sourceTree = "<group>"; };
 		05715BFE161FC3070023B321 /* TCAHPSimpleClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPSimpleClient.h; path = ../TCAHPSimpleClient.h; sourceTree = "<group>"; };
@@ -78,15 +62,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		051FE38817B8432D002B2CF8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				05AE47FA17F4AA1D00A40A21 /* Security.framework in Frameworks */,
-				051FE38C17B8432D002B2CF8 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		05BA81A714AB66F7003E10FB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				05BA81AA14AB66F7003E10FB /* TCAHPDemo */,
-				051FE38B17B8432D002B2CF8 /* EmiNetDemo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,23 +147,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		051FE38A17B8432D002B2CF8 /* EmiNetDemo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 051FE39617B8432D002B2CF8 /* Build configuration list for PBXNativeTarget "EmiNetDemo" */;
-			buildPhases = (
-				051FE38717B8432D002B2CF8 /* Sources */,
-				051FE38817B8432D002B2CF8 /* Frameworks */,
-				051FE38917B8432D002B2CF8 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = EmiNetDemo;
-			productName = EmiNetDemo;
-			productReference = 051FE38B17B8432D002B2CF8 /* EmiNetDemo */;
-			productType = "com.apple.product-type.tool";
-		};
 		05BA81A914AB66F7003E10FB /* TCAHPDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 05BA81B914AB66F7003E10FB /* Build configuration list for PBXNativeTarget "TCAHPDemo" */;
@@ -228,23 +185,11 @@
 			projectRoot = "";
 			targets = (
 				05BA81A914AB66F7003E10FB /* TCAHPDemo */,
-				051FE38A17B8432D002B2CF8 /* EmiNetDemo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		051FE38717B8432D002B2CF8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				055A354C17B958B700678EB3 /* TCAHPTransport.m in Sources */,
-				055A354F17BFBE7800678EB3 /* TCAsyncHashProtocol.m in Sources */,
-				055A354E17B9651100678EB3 /* DemoClient.m in Sources */,
-				055A354D17B9651100678EB3 /* DemoServer.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		05BA81A614AB66F7003E10FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -264,45 +209,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		051FE39417B8432D002B2CF8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "EmiNetDemo/EmiNetDemo-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"OS_OBJECT_USE_OBJC=0",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		051FE39517B8432D002B2CF8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "EmiNetDemo/EmiNetDemo-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "OS_OBJECT_USE_OBJC=0";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		05BA81B714AB66F7003E10FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -387,15 +293,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		051FE39617B8432D002B2CF8 /* Build configuration list for PBXNativeTarget "EmiNetDemo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				051FE39417B8432D002B2CF8 /* Debug */,
-				051FE39517B8432D002B2CF8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		05BA81A414AB66F7003E10FB /* Build configuration list for PBXProject "TCAHPDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
