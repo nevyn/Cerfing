@@ -8,18 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		051FE38C17B8432D002B2CF8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
-		051FE38F17B8432D002B2CF8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 051FE38E17B8432D002B2CF8 /* main.m */; };
-		051FE39317B8432D002B2CF8 /* EmiNetDemo.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 051FE39217B8432D002B2CF8 /* EmiNetDemo.1 */; };
-		051FE3DD17B8434F002B2CF8 /* EmiConnTime.cc in Sources */ = {isa = PBXBuildFile; fileRef = 051FE39C17B8434F002B2CF8 /* EmiConnTime.cc */; };
-		051FE3DE17B8434F002B2CF8 /* EmiDataArrivalRate.cc in Sources */ = {isa = PBXBuildFile; fileRef = 051FE39F17B8434F002B2CF8 /* EmiDataArrivalRate.cc */; };
-		051FE3DF17B8434F002B2CF8 /* EmiLinkCapacity.cc in Sources */ = {isa = PBXBuildFile; fileRef = 051FE3A117B8434F002B2CF8 /* EmiLinkCapacity.cc */; };
-		051FE3E017B8434F002B2CF8 /* EmiLossList.cc in Sources */ = {isa = PBXBuildFile; fileRef = 051FE3A417B8434F002B2CF8 /* EmiLossList.cc */; };
-		051FE3E117B8434F002B2CF8 /* EmiMessageHeader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 051FE3A917B8434F002B2CF8 /* EmiMessageHeader.cc */; };
-		051FE3E217B8434F002B2CF8 /* EmiNetUtil.cc in Sources */ = {isa = PBXBuildFile; fileRef = 051FE3AD17B8434F002B2CF8 /* EmiNetUtil.cc */; };
-		051FE3E317B8434F002B2CF8 /* EmiPacketHeader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 051FE3B417B8434F002B2CF8 /* EmiPacketHeader.cc */; };
-		051FE3E417B8434F002B2CF8 /* EmiRC4.cc in Sources */ = {isa = PBXBuildFile; fileRef = 051FE3B617B8434F002B2CF8 /* EmiRC4.cc */; };
-		055A354517B843D900678EB3 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A354417B843D900678EB3 /* GCDAsyncUdpSocket.m */; };
-		055A354B17B8441400678EB3 /* TCAHPEmiConnectionTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A354A17B8441400678EB3 /* TCAHPEmiConnectionTransport.m */; };
 		055A354C17B958B700678EB3 /* TCAHPTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C96CD817B05C17001B1CDF /* TCAHPTransport.m */; };
 		055A354D17B9651100678EB3 /* DemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81D914ABBB39003E10FB /* DemoServer.m */; };
 		055A354E17B9651100678EB3 /* DemoClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81DD14ABBB42003E10FB /* DemoClient.m */; };
@@ -27,21 +15,10 @@
 		05715BCB161FBC9C0023B321 /* TCAHPSimpleServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */; };
 		05715C00161FC3070023B321 /* TCAHPSimpleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */; };
 		05AE47FA17F4AA1D00A40A21 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05AE47F917F4AA1D00A40A21 /* Security.framework */; };
-		05AE481D17F4D50E00A40A21 /* EmiBinding.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE480217F4D50E00A40A21 /* EmiBinding.mm */; };
-		05AE481E17F4D50E00A40A21 /* EmiConnDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE480417F4D50E00A40A21 /* EmiConnDelegate.mm */; };
-		05AE481F17F4D50E00A40A21 /* EmiConnection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE480617F4D50E00A40A21 /* EmiConnection.mm */; };
-		05AE482017F4D50E00A40A21 /* EmiConnectionOpenedBlockWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AE480917F4D50E00A40A21 /* EmiConnectionOpenedBlockWrapper.m */; };
-		05AE482117F4D50E00A40A21 /* EmiDispatchQueueWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AE480B17F4D50E00A40A21 /* EmiDispatchQueueWrapper.m */; };
-		05AE482217F4D50E00A40A21 /* EmiDispatchTimer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE480D17F4D50E00A40A21 /* EmiDispatchTimer.mm */; };
-		05AE482317F4D50E00A40A21 /* EmiP2PSocketConfig.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE481117F4D50E00A40A21 /* EmiP2PSocketConfig.mm */; };
-		05AE482417F4D50E00A40A21 /* EmiSockDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE481417F4D50E00A40A21 /* EmiSockDelegate.mm */; };
-		05AE482517F4D50E00A40A21 /* EmiSocket.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE481617F4D50E00A40A21 /* EmiSocket.mm */; };
-		05AE482617F4D50E00A40A21 /* EmiSocketConfig.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE481817F4D50E00A40A21 /* EmiSocketConfig.mm */; };
-		05AE482717F4D50E00A40A21 /* EmiSocketUserDataWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05AE481C17F4D50E00A40A21 /* EmiSocketUserDataWrapper.mm */; };
 		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
 		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
 		05BA81B614AB66F7003E10FB /* TCAHPDemo.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05BA81B514AB66F7003E10FB /* TCAHPDemo.1 */; };
-		05BA81BE14AB6713003E10FB /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81BD14AB6713003E10FB /* AsyncSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		05BA81BE14AB6713003E10FB /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81BD14AB6713003E10FB /* AsyncSocket.m */; };
 		05BA81C414AB671C003E10FB /* TCAsyncHashProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81C214AB671C003E10FB /* TCAsyncHashProtocol.m */; };
 		05BA81C614AB67AB003E10FB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81C514AB67AB003E10FB /* CoreServices.framework */; };
 		05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81D914ABBB39003E10FB /* DemoServer.m */; };
@@ -57,7 +34,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				051FE39317B8432D002B2CF8 /* EmiNetDemo.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -75,86 +51,11 @@
 
 /* Begin PBXFileReference section */
 		051FE38B17B8432D002B2CF8 /* EmiNetDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EmiNetDemo; sourceTree = BUILT_PRODUCTS_DIR; };
-		051FE38E17B8432D002B2CF8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		051FE39117B8432D002B2CF8 /* EmiNetDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EmiNetDemo-Prefix.pch"; sourceTree = "<group>"; };
-		051FE39217B8432D002B2CF8 /* EmiNetDemo.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = EmiNetDemo.1; sourceTree = "<group>"; };
-		051FE39817B8434F002B2CF8 /* EmiAddressCmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiAddressCmp.h; sourceTree = "<group>"; };
-		051FE39917B8434F002B2CF8 /* EmiCongestionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiCongestionControl.h; sourceTree = "<group>"; };
-		051FE39A17B8434F002B2CF8 /* EmiConn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiConn.h; sourceTree = "<group>"; };
-		051FE39B17B8434F002B2CF8 /* EmiConnParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiConnParams.h; sourceTree = "<group>"; };
-		051FE39C17B8434F002B2CF8 /* EmiConnTime.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmiConnTime.cc; sourceTree = "<group>"; };
-		051FE39D17B8434F002B2CF8 /* EmiConnTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiConnTime.h; sourceTree = "<group>"; };
-		051FE39E17B8434F002B2CF8 /* EmiConnTimers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiConnTimers.h; sourceTree = "<group>"; };
-		051FE39F17B8434F002B2CF8 /* EmiDataArrivalRate.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmiDataArrivalRate.cc; sourceTree = "<group>"; };
-		051FE3A017B8434F002B2CF8 /* EmiDataArrivalRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiDataArrivalRate.h; sourceTree = "<group>"; };
-		051FE3A117B8434F002B2CF8 /* EmiLinkCapacity.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmiLinkCapacity.cc; sourceTree = "<group>"; };
-		051FE3A217B8434F002B2CF8 /* EmiLinkCapacity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiLinkCapacity.h; sourceTree = "<group>"; };
-		051FE3A317B8434F002B2CF8 /* EmiLogicalConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiLogicalConnection.h; sourceTree = "<group>"; };
-		051FE3A417B8434F002B2CF8 /* EmiLossList.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmiLossList.cc; sourceTree = "<group>"; };
-		051FE3A517B8434F002B2CF8 /* EmiLossList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiLossList.h; sourceTree = "<group>"; };
-		051FE3A617B8434F002B2CF8 /* EmiMedianFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiMedianFilter.h; sourceTree = "<group>"; };
-		051FE3A717B8434F002B2CF8 /* EmiMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiMessage.h; sourceTree = "<group>"; };
-		051FE3A817B8434F002B2CF8 /* EmiMessageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiMessageHandler.h; sourceTree = "<group>"; };
-		051FE3A917B8434F002B2CF8 /* EmiMessageHeader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmiMessageHeader.cc; sourceTree = "<group>"; };
-		051FE3AA17B8434F002B2CF8 /* EmiMessageHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiMessageHeader.h; sourceTree = "<group>"; };
-		051FE3AB17B8434F002B2CF8 /* EmiNatPunchthrough.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiNatPunchthrough.h; sourceTree = "<group>"; };
-		051FE3AC17B8434F002B2CF8 /* EmiNetRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiNetRandom.h; sourceTree = "<group>"; };
-		051FE3AD17B8434F002B2CF8 /* EmiNetUtil.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmiNetUtil.cc; sourceTree = "<group>"; };
-		051FE3AE17B8434F002B2CF8 /* EmiNetUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiNetUtil.h; sourceTree = "<group>"; };
-		051FE3AF17B8434F002B2CF8 /* EmiP2PConn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiP2PConn.h; sourceTree = "<group>"; };
-		051FE3B017B8434F002B2CF8 /* EmiP2PData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiP2PData.h; sourceTree = "<group>"; };
-		051FE3B117B8434F002B2CF8 /* EmiP2PEndpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiP2PEndpoints.h; sourceTree = "<group>"; };
-		051FE3B217B8434F002B2CF8 /* EmiP2PSock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiP2PSock.h; sourceTree = "<group>"; };
-		051FE3B317B8434F002B2CF8 /* EmiP2PSockConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiP2PSockConfig.h; sourceTree = "<group>"; };
-		051FE3B417B8434F002B2CF8 /* EmiPacketHeader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmiPacketHeader.cc; sourceTree = "<group>"; };
-		051FE3B517B8434F002B2CF8 /* EmiPacketHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiPacketHeader.h; sourceTree = "<group>"; };
-		051FE3B617B8434F002B2CF8 /* EmiRC4.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmiRC4.cc; sourceTree = "<group>"; };
-		051FE3B717B8434F002B2CF8 /* EmiRC4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiRC4.h; sourceTree = "<group>"; };
-		051FE3B817B8434F002B2CF8 /* EmiReceiverBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiReceiverBuffer.h; sourceTree = "<group>"; };
-		051FE3B917B8434F002B2CF8 /* EmiRtoTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiRtoTimer.h; sourceTree = "<group>"; };
-		051FE3BA17B8434F002B2CF8 /* EmiSenderBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSenderBuffer.h; sourceTree = "<group>"; };
-		051FE3BB17B8434F002B2CF8 /* EmiSendQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSendQueue.h; sourceTree = "<group>"; };
-		051FE3BC17B8434F002B2CF8 /* EmiSock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSock.h; sourceTree = "<group>"; };
-		051FE3BD17B8434F002B2CF8 /* EmiSockConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSockConfig.h; sourceTree = "<group>"; };
-		051FE3BE17B8434F002B2CF8 /* EmiTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiTypes.h; sourceTree = "<group>"; };
-		051FE3BF17B8434F002B2CF8 /* EmiUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiUdpSocket.h; sourceTree = "<group>"; };
-		055A354317B843D900678EB3 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
-		055A354417B843D900678EB3 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
-		055A354917B8441400678EB3 /* TCAHPEmiConnectionTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPEmiConnectionTransport.h; path = ../../TCAHPEmiConnectionTransport.h; sourceTree = "<group>"; };
-		055A354A17B8441400678EB3 /* TCAHPEmiConnectionTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPEmiConnectionTransport.m; path = ../../TCAHPEmiConnectionTransport.m; sourceTree = "<group>"; };
 		05715BC9161FBC9C0023B321 /* TCAHPSimpleServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPSimpleServer.h; path = ../TCAHPSimpleServer.h; sourceTree = "<group>"; };
 		05715BCA161FBC9C0023B321 /* TCAHPSimpleServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPSimpleServer.m; path = ../TCAHPSimpleServer.m; sourceTree = "<group>"; };
 		05715BFE161FC3070023B321 /* TCAHPSimpleClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAHPSimpleClient.h; path = ../TCAHPSimpleClient.h; sourceTree = "<group>"; };
 		05715BFF161FC3070023B321 /* TCAHPSimpleClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAHPSimpleClient.m; path = ../TCAHPSimpleClient.m; sourceTree = "<group>"; };
 		05AE47F917F4AA1D00A40A21 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		05AE480117F4D50E00A40A21 /* EmiBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiBinding.h; sourceTree = "<group>"; };
-		05AE480217F4D50E00A40A21 /* EmiBinding.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiBinding.mm; sourceTree = "<group>"; };
-		05AE480317F4D50E00A40A21 /* EmiConnDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiConnDelegate.h; sourceTree = "<group>"; };
-		05AE480417F4D50E00A40A21 /* EmiConnDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiConnDelegate.mm; sourceTree = "<group>"; };
-		05AE480517F4D50E00A40A21 /* EmiConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiConnection.h; sourceTree = "<group>"; };
-		05AE480617F4D50E00A40A21 /* EmiConnection.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiConnection.mm; sourceTree = "<group>"; };
-		05AE480717F4D50E00A40A21 /* EmiConnectionInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiConnectionInternal.h; sourceTree = "<group>"; };
-		05AE480817F4D50E00A40A21 /* EmiConnectionOpenedBlockWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiConnectionOpenedBlockWrapper.h; sourceTree = "<group>"; };
-		05AE480917F4D50E00A40A21 /* EmiConnectionOpenedBlockWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmiConnectionOpenedBlockWrapper.m; sourceTree = "<group>"; };
-		05AE480A17F4D50E00A40A21 /* EmiDispatchQueueWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiDispatchQueueWrapper.h; sourceTree = "<group>"; };
-		05AE480B17F4D50E00A40A21 /* EmiDispatchQueueWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmiDispatchQueueWrapper.m; sourceTree = "<group>"; };
-		05AE480C17F4D50E00A40A21 /* EmiDispatchTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiDispatchTimer.h; sourceTree = "<group>"; };
-		05AE480D17F4D50E00A40A21 /* EmiDispatchTimer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiDispatchTimer.mm; sourceTree = "<group>"; };
-		05AE480E17F4D50E00A40A21 /* EmiNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiNet.h; sourceTree = "<group>"; };
-		05AE480F17F4D50E00A40A21 /* EmiObjCBindingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiObjCBindingHelper.h; sourceTree = "<group>"; };
-		05AE481017F4D50E00A40A21 /* EmiP2PSocketConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiP2PSocketConfig.h; sourceTree = "<group>"; };
-		05AE481117F4D50E00A40A21 /* EmiP2PSocketConfig.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiP2PSocketConfig.mm; sourceTree = "<group>"; };
-		05AE481217F4D50E00A40A21 /* EmiP2PSocketConfigInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiP2PSocketConfigInternal.h; sourceTree = "<group>"; };
-		05AE481317F4D50E00A40A21 /* EmiSockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSockDelegate.h; sourceTree = "<group>"; };
-		05AE481417F4D50E00A40A21 /* EmiSockDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiSockDelegate.mm; sourceTree = "<group>"; };
-		05AE481517F4D50E00A40A21 /* EmiSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSocket.h; sourceTree = "<group>"; };
-		05AE481617F4D50E00A40A21 /* EmiSocket.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiSocket.mm; sourceTree = "<group>"; };
-		05AE481717F4D50E00A40A21 /* EmiSocketConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSocketConfig.h; sourceTree = "<group>"; };
-		05AE481817F4D50E00A40A21 /* EmiSocketConfig.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiSocketConfig.mm; sourceTree = "<group>"; };
-		05AE481917F4D50E00A40A21 /* EmiSocketConfigInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSocketConfigInternal.h; sourceTree = "<group>"; };
-		05AE481A17F4D50E00A40A21 /* EmiSocketInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSocketInternal.h; sourceTree = "<group>"; };
-		05AE481B17F4D50E00A40A21 /* EmiSocketUserDataWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmiSocketUserDataWrapper.h; sourceTree = "<group>"; };
-		05AE481C17F4D50E00A40A21 /* EmiSocketUserDataWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmiSocketUserDataWrapper.mm; sourceTree = "<group>"; };
 		05BA81AA14AB66F7003E10FB /* TCAHPDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TCAHPDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		05BA81AE14AB66F7003E10FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05BA81B114AB66F7003E10FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -198,78 +99,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		051FE38D17B8432D002B2CF8 /* EmiNetDemo */ = {
-			isa = PBXGroup;
-			children = (
-				051FE38E17B8432D002B2CF8 /* main.m */,
-				055A354317B843D900678EB3 /* GCDAsyncUdpSocket.h */,
-				055A354417B843D900678EB3 /* GCDAsyncUdpSocket.m */,
-				055A354917B8441400678EB3 /* TCAHPEmiConnectionTransport.h */,
-				055A354A17B8441400678EB3 /* TCAHPEmiConnectionTransport.m */,
-				051FE39717B8434F002B2CF8 /* core */,
-				05AE480017F4D50E00A40A21 /* EmiNet */,
-				051FE39217B8432D002B2CF8 /* EmiNetDemo.1 */,
-				051FE39017B8432D002B2CF8 /* Supporting Files */,
-			);
-			path = EmiNetDemo;
-			sourceTree = "<group>";
-		};
-		051FE39017B8432D002B2CF8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				051FE39117B8432D002B2CF8 /* EmiNetDemo-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		051FE39717B8434F002B2CF8 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				051FE39817B8434F002B2CF8 /* EmiAddressCmp.h */,
-				051FE39917B8434F002B2CF8 /* EmiCongestionControl.h */,
-				051FE39A17B8434F002B2CF8 /* EmiConn.h */,
-				051FE39B17B8434F002B2CF8 /* EmiConnParams.h */,
-				051FE39C17B8434F002B2CF8 /* EmiConnTime.cc */,
-				051FE39D17B8434F002B2CF8 /* EmiConnTime.h */,
-				051FE39E17B8434F002B2CF8 /* EmiConnTimers.h */,
-				051FE39F17B8434F002B2CF8 /* EmiDataArrivalRate.cc */,
-				051FE3A017B8434F002B2CF8 /* EmiDataArrivalRate.h */,
-				051FE3A117B8434F002B2CF8 /* EmiLinkCapacity.cc */,
-				051FE3A217B8434F002B2CF8 /* EmiLinkCapacity.h */,
-				051FE3A317B8434F002B2CF8 /* EmiLogicalConnection.h */,
-				051FE3A417B8434F002B2CF8 /* EmiLossList.cc */,
-				051FE3A517B8434F002B2CF8 /* EmiLossList.h */,
-				051FE3A617B8434F002B2CF8 /* EmiMedianFilter.h */,
-				051FE3A717B8434F002B2CF8 /* EmiMessage.h */,
-				051FE3A817B8434F002B2CF8 /* EmiMessageHandler.h */,
-				051FE3A917B8434F002B2CF8 /* EmiMessageHeader.cc */,
-				051FE3AA17B8434F002B2CF8 /* EmiMessageHeader.h */,
-				051FE3AB17B8434F002B2CF8 /* EmiNatPunchthrough.h */,
-				051FE3AC17B8434F002B2CF8 /* EmiNetRandom.h */,
-				051FE3AD17B8434F002B2CF8 /* EmiNetUtil.cc */,
-				051FE3AE17B8434F002B2CF8 /* EmiNetUtil.h */,
-				051FE3AF17B8434F002B2CF8 /* EmiP2PConn.h */,
-				051FE3B017B8434F002B2CF8 /* EmiP2PData.h */,
-				051FE3B117B8434F002B2CF8 /* EmiP2PEndpoints.h */,
-				051FE3B217B8434F002B2CF8 /* EmiP2PSock.h */,
-				051FE3B317B8434F002B2CF8 /* EmiP2PSockConfig.h */,
-				051FE3B417B8434F002B2CF8 /* EmiPacketHeader.cc */,
-				051FE3B517B8434F002B2CF8 /* EmiPacketHeader.h */,
-				051FE3B617B8434F002B2CF8 /* EmiRC4.cc */,
-				051FE3B717B8434F002B2CF8 /* EmiRC4.h */,
-				051FE3B817B8434F002B2CF8 /* EmiReceiverBuffer.h */,
-				051FE3B917B8434F002B2CF8 /* EmiRtoTimer.h */,
-				051FE3BA17B8434F002B2CF8 /* EmiSenderBuffer.h */,
-				051FE3BB17B8434F002B2CF8 /* EmiSendQueue.h */,
-				051FE3BC17B8434F002B2CF8 /* EmiSock.h */,
-				051FE3BD17B8434F002B2CF8 /* EmiSockConfig.h */,
-				051FE3BE17B8434F002B2CF8 /* EmiTypes.h */,
-				051FE3BF17B8434F002B2CF8 /* EmiUdpSocket.h */,
-			);
-			name = core;
-			path = ../../../eminet/core;
-			sourceTree = "<group>";
-		};
 		055A355017BFC15B00678EB3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,49 +118,12 @@
 			name = Shared;
 			sourceTree = "<group>";
 		};
-		05AE480017F4D50E00A40A21 /* EmiNet */ = {
-			isa = PBXGroup;
-			children = (
-				05AE480117F4D50E00A40A21 /* EmiBinding.h */,
-				05AE480217F4D50E00A40A21 /* EmiBinding.mm */,
-				05AE480317F4D50E00A40A21 /* EmiConnDelegate.h */,
-				05AE480417F4D50E00A40A21 /* EmiConnDelegate.mm */,
-				05AE480517F4D50E00A40A21 /* EmiConnection.h */,
-				05AE480617F4D50E00A40A21 /* EmiConnection.mm */,
-				05AE480717F4D50E00A40A21 /* EmiConnectionInternal.h */,
-				05AE480817F4D50E00A40A21 /* EmiConnectionOpenedBlockWrapper.h */,
-				05AE480917F4D50E00A40A21 /* EmiConnectionOpenedBlockWrapper.m */,
-				05AE480A17F4D50E00A40A21 /* EmiDispatchQueueWrapper.h */,
-				05AE480B17F4D50E00A40A21 /* EmiDispatchQueueWrapper.m */,
-				05AE480C17F4D50E00A40A21 /* EmiDispatchTimer.h */,
-				05AE480D17F4D50E00A40A21 /* EmiDispatchTimer.mm */,
-				05AE480E17F4D50E00A40A21 /* EmiNet.h */,
-				05AE480F17F4D50E00A40A21 /* EmiObjCBindingHelper.h */,
-				05AE481017F4D50E00A40A21 /* EmiP2PSocketConfig.h */,
-				05AE481117F4D50E00A40A21 /* EmiP2PSocketConfig.mm */,
-				05AE481217F4D50E00A40A21 /* EmiP2PSocketConfigInternal.h */,
-				05AE481317F4D50E00A40A21 /* EmiSockDelegate.h */,
-				05AE481417F4D50E00A40A21 /* EmiSockDelegate.mm */,
-				05AE481517F4D50E00A40A21 /* EmiSocket.h */,
-				05AE481617F4D50E00A40A21 /* EmiSocket.mm */,
-				05AE481717F4D50E00A40A21 /* EmiSocketConfig.h */,
-				05AE481817F4D50E00A40A21 /* EmiSocketConfig.mm */,
-				05AE481917F4D50E00A40A21 /* EmiSocketConfigInternal.h */,
-				05AE481A17F4D50E00A40A21 /* EmiSocketInternal.h */,
-				05AE481B17F4D50E00A40A21 /* EmiSocketUserDataWrapper.h */,
-				05AE481C17F4D50E00A40A21 /* EmiSocketUserDataWrapper.mm */,
-			);
-			name = EmiNet;
-			path = ../../../eminet/EmiNet;
-			sourceTree = "<group>";
-		};
 		05BA819F14AB66F7003E10FB = {
 			isa = PBXGroup;
 			children = (
 				05BA81DF14ABBC57003E10FB /* README.md */,
 				055A355017BFC15B00678EB3 /* Shared */,
 				05BA81B014AB66F7003E10FB /* TCAHPDemo */,
-				051FE38D17B8432D002B2CF8 /* EmiNetDemo */,
 				05BA81AD14AB66F7003E10FB /* Frameworks */,
 				05BA81AB14AB66F7003E10FB /* Products */,
 			);
@@ -446,32 +238,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05AE482017F4D50E00A40A21 /* EmiConnectionOpenedBlockWrapper.m in Sources */,
-				055A354B17B8441400678EB3 /* TCAHPEmiConnectionTransport.m in Sources */,
-				051FE3DD17B8434F002B2CF8 /* EmiConnTime.cc in Sources */,
-				05AE481F17F4D50E00A40A21 /* EmiConnection.mm in Sources */,
-				051FE3E217B8434F002B2CF8 /* EmiNetUtil.cc in Sources */,
-				051FE3E317B8434F002B2CF8 /* EmiPacketHeader.cc in Sources */,
-				05AE482217F4D50E00A40A21 /* EmiDispatchTimer.mm in Sources */,
-				055A354517B843D900678EB3 /* GCDAsyncUdpSocket.m in Sources */,
 				055A354C17B958B700678EB3 /* TCAHPTransport.m in Sources */,
-				051FE3E417B8434F002B2CF8 /* EmiRC4.cc in Sources */,
-				051FE3E017B8434F002B2CF8 /* EmiLossList.cc in Sources */,
-				051FE3DF17B8434F002B2CF8 /* EmiLinkCapacity.cc in Sources */,
 				055A354F17BFBE7800678EB3 /* TCAsyncHashProtocol.m in Sources */,
 				055A354E17B9651100678EB3 /* DemoClient.m in Sources */,
-				05AE482517F4D50E00A40A21 /* EmiSocket.mm in Sources */,
-				051FE3DE17B8434F002B2CF8 /* EmiDataArrivalRate.cc in Sources */,
-				05AE481D17F4D50E00A40A21 /* EmiBinding.mm in Sources */,
-				05AE482617F4D50E00A40A21 /* EmiSocketConfig.mm in Sources */,
-				05AE482317F4D50E00A40A21 /* EmiP2PSocketConfig.mm in Sources */,
-				051FE3E117B8434F002B2CF8 /* EmiMessageHeader.cc in Sources */,
-				05AE482717F4D50E00A40A21 /* EmiSocketUserDataWrapper.mm in Sources */,
-				05AE482117F4D50E00A40A21 /* EmiDispatchQueueWrapper.m in Sources */,
 				055A354D17B9651100678EB3 /* DemoServer.m in Sources */,
-				05AE482417F4D50E00A40A21 /* EmiSockDelegate.mm in Sources */,
-				05AE481E17F4D50E00A40A21 /* EmiConnDelegate.mm in Sources */,
-				051FE38F17B8432D002B2CF8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
