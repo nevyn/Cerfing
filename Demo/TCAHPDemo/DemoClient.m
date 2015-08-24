@@ -52,22 +52,11 @@
 	NSLog(@"Client transport disconnection: %@", err);
 }
 
+// Command auto-dispatch will call this method since we're the proto's delegate when an incoming request dictionary contains
+// the key-value pair {@"command": @"setMessage"}.
 -(void)command:(TCAsyncHashProtocol*)proto displayMessage:(NSDictionary*)hash;
 {
 	NSLog(@"Incoming message: %@", hash[@"contents"]);
 }
 
-
--(void)protocol:(TCAsyncHashProtocol*)proto receivedHash:(NSDictionary*)hash payload:(NSData*)payload;
-{
-	// If we reach this delegate, command delegation failed and we don't understand
-	// the command
-	NSLog(@"Invalid command: %@", hash);
-	[proto.transport disconnect];
-}
--(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;
-{
-	NSLog(@"Invalid request: %@", hash);
-	[proto.transport disconnect];
-}
 @end

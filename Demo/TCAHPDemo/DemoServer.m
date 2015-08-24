@@ -77,6 +77,8 @@
 	}];
 }
 
+// Command auto-dispatch will call this method since we're the proto's delegate when an incoming request dictionary contains
+// the key-value pair {@"command": @"setMessage"}.
 -(void)request:(TCAsyncHashProtocol*)proto setMessage:(NSDictionary*)hash responder:(TCAsyncHashProtocolResponseCallback)respond;
 {
 	NSString *newMessage = hash[@"contents"];
@@ -96,13 +98,15 @@
 	}
 }
 
+// If the incoming dictionary has a @"command" key whose value doesn't correspond to a selector of a method like
+// the one above, we can use this method as a catch-all for commands.
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedHash:(NSDictionary*)hash payload:(NSData*)payload;
 {
-	// If we reach this delegate, command delegation failed and we don't understand
-	// the command
 	NSLog(@"Invalid command: %@", hash);
 	[proto.transport disconnect];
 }
+// Like the above, but for messages that are requests that expects responses. Call 'responder' with a dictionary
+// to respond to the request.
 -(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;
 {
 	NSLog(@"Invalid request: %@", hash);

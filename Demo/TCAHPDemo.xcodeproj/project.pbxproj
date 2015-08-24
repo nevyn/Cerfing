@@ -122,8 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				05BA81DF14ABBC57003E10FB /* README.md */,
-				053C2EE81B8B744F003C9DB8 /* TCAsyncHashProto */,
 				05BA81B014AB66F7003E10FB /* Demo */,
+				053C2EE81B8B744F003C9DB8 /* TCAsyncHashProto */,
 				05BA81AD14AB66F7003E10FB /* Frameworks */,
 				05BA81AB14AB66F7003E10FB /* Products */,
 			);
