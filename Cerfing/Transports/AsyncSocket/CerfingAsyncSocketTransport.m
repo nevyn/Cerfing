@@ -1,12 +1,12 @@
-#import "TCAHPAsyncSocketTransport.h"
+#import "CerfingAsyncSocketTransport.h"
 
-@interface TCAHPAsyncSocketTransport () <AsyncSocketDelegate>
+@interface CerfingAsyncSocketTransport () <AsyncSocketDelegate>
 @end
 
-@implementation TCAHPAsyncSocketTransport
+@implementation CerfingAsyncSocketTransport
 @synthesize socket = _socket;
 
-- (id)initListeningOnPort:(int)port delegate:(id<TCAHPTransportDelegate>)delegate
+- (id)initListeningOnPort:(int)port delegate:(id<CerfingTransportDelegate>)delegate
 {
 	if(!(self = [self initWithSocket:[[AsyncSocket alloc] initWithDelegate:self] delegate:delegate]))
 		return nil;
@@ -21,7 +21,7 @@
 	return self;
 }
 
-- (id)initConnectingToHost:(NSString*)host port:(int)port delegate:(id<TCAHPTransportDelegate>)delegate
+- (id)initConnectingToHost:(NSString*)host port:(int)port delegate:(id<CerfingTransportDelegate>)delegate
 {
 	if(!(self = [self initWithSocket:[[AsyncSocket alloc] initWithDelegate:self] delegate:delegate]))
 		return nil;
@@ -37,7 +37,7 @@
 }
 
 
-- (id)initWithSocket:(AsyncSocket*)socket delegate:(id<TCAHPTransportDelegate>)delegate
+- (id)initWithSocket:(AsyncSocket*)socket delegate:(id<CerfingTransportDelegate>)delegate
 {
 	if(self = [super init]) {
 		_socket = socket;
@@ -80,7 +80,7 @@
 		[(id)self.delegate onSocket:sock didAcceptNewSocket:newSocket];
 	
 	if([self.delegate respondsToSelector:@selector(listeningTransport:acceptedConnection:)]) {
-		TCAHPAsyncSocketTransport *newTransport = [[TCAHPAsyncSocketTransport alloc] initWithSocket:newSocket delegate:self.delegate];
+		CerfingAsyncSocketTransport *newTransport = [[CerfingAsyncSocketTransport alloc] initWithSocket:newSocket delegate:self.delegate];
 		[self.delegate listeningTransport:self acceptedConnection:newTransport];
 	}
 }

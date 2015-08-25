@@ -1,5 +1,5 @@
-#import "TCAsyncHashProtocol.h"
-#import "TCAHPAsyncSocketTransport.h"
+#import "CerfingConnection.h"
+#import "CerfingAsyncSocketTransport.h"
 
 #if !__has_feature(objc_arc)
 #error This file must be compiled with -fobjc-arc.
@@ -22,48 +22,48 @@ enum {
 };
 
 // Private keys
-static NSString *const kTCAsyncHashProtocolRequestKey = @"__tcahp-requestKey";
-static NSString *const kTCAsyncHashProtocolResponseKey = @"__tcahp-responseKey";
-static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSize";
+static NSString *const kCerfingRequestKey = @"__cerfing-requestKey";
+static NSString *const kCerfingResponseKey = @"__cerfing-responseKey";
+static NSString *const kCerfingPayloadSizeKey = @"__cerfing-payloadSize";
 // Public keys
-       NSString *const kTCCommand = @"command";
+NSString *const kCerfingCommand = @"command";
 
-@interface TCAsyncHashProtocol () <TCAHPTransportDelegate>
-@property(nonatomic,strong,readwrite) TCAHPTransport *transport;
+@interface CerfingConnection () <CerfingTransportDelegate>
+@property(nonatomic,strong,readwrite) CerfingTransport *transport;
 @end
 
-@implementation TCAsyncHashProtocol {
+@implementation CerfingConnection {
 	NSMutableDictionary *requests;
 	NSDictionary *savedHash;
 	BOOL _hasOutstandingHashRead;
 	BOOL _customSerialization;
 }
-@synthesize transport = _transport, delegate = _delegate, autoReadHash = _autoReadHash;
-@synthesize autoDispatchCommands = _autoDispatchCommands;
+@synthesize transport = _transport, delegate = _delegate, automaticallyReadsDicts = _automaticallyReadsDicts;
+@synthesize automaticallyDispatchCommands = _automaticallyDispatchCommands;
 
--(id)initWithTransport:(TCAHPTransport*)transport delegate:(id<TCAsyncHashProtocolDelegate>)delegate
+-(id)initWithTransport:(CerfingTransport*)transport delegate:(id<CerfingConnectionDelegate>)delegate
 {
 	if(!transport) return nil;
 	
 	if(!(self = [super init])) return nil;
 	
 	self.transport = transport;
-	_autoReadHash = YES;
+	_automaticallyReadsDicts = YES;
 	_transport.delegate = self;
 	_delegate = delegate;
 	requests = [NSMutableDictionary dictionary];
 	
-	BOOL supportsSerialization = [delegate respondsToSelector:@selector(protocol:serializeHash:)];
-	BOOL supportsUnserialization = [delegate respondsToSelector:@selector(protocol:unserializeHash:)];
+	BOOL supportsSerialization = [delegate respondsToSelector:@selector(connection:serializeDict:)];
+	BOOL supportsUnserialization = [delegate respondsToSelector:@selector(connection:unserializeDict:)];
 	_customSerialization = supportsSerialization && supportsUnserialization;
 	NSAssert(~(supportsSerialization ^ supportsUnserialization), @"Must support neither, or both.");
 	
 	return self;
 }
 
--(id)initWithSocket:(AsyncSocket*)sock delegate:(id<TCAsyncHashProtocolDelegate>)delegate
+-(id)initWithSocket:(AsyncSocket*)sock delegate:(id<CerfingConnectionDelegate>)delegate
 {
-	return [self initWithTransport:[(TCAHPAsyncSocketTransport*)[NSClassFromString(@"TCAHPAsyncSocketTransport") alloc] initWithSocket:sock delegate:self] delegate:delegate];
+	return [self initWithTransport:[(CerfingAsyncSocketTransport*)[NSClassFromString(@"CerfingAsyncSocketTransport") alloc] initWithSocket:sock delegate:self] delegate:delegate];
 }
 
 -(void)dealloc;
@@ -91,7 +91,7 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 
 #pragma mark Serialization
 /*
-	TCAHP doesn't really care about the encoding of the payload. JSON and plist
+	Cerfing doesn't really care about the encoding of the payload. JSON and plist
 	are easy to debug, and also ensures that only our standard 'PODdy' classes
 	are ever instantiated. Using NSCoding archiving is incredibly powerful,
 	but opens up for remote code execution if we're not careful. Adding a layer of
@@ -102,88 +102,88 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 -(NSData*)serialize:(id)thing;
 {
 	if(_customSerialization)
-		return [_delegate protocol:self serializeHash:thing];
+		return [_delegate connection:self serializeDict:thing];
 	NSError *err = nil;
 	return [NSJSONSerialization dataWithJSONObject:thing options:0 error:&err];
 }
 -(id)unserialize:(NSData*)unthing;
 {
 	if(_customSerialization)
-		return [_delegate protocol:self unserializeHash:unthing];
+		return [_delegate connection:self unserializeDict:unthing];
 	NSError *err = nil;
 	return [NSJSONSerialization JSONObjectWithData:unthing options:0 error:&err];
 }
 
 #pragma mark Transport
-- (void)transportDidConnect:(TCAHPTransport*)transport
+- (void)transportDidConnect:(CerfingTransport*)transport
 {
 	if([self.delegate respondsToSelector:_cmd])
 		[(id)self.delegate transportDidConnect:transport];
 	
-	if(self.autoReadHash)
-		[self readHash];
+	if(self.automaticallyReadsDicts)
+		[self readDict];
 }
 
 -(BOOL)needsReadHashAfterDelegating:(NSDictionary*)hash payload:(NSData*)payload;
 {
-	NSString *reqKey = hash[kTCAsyncHashProtocolRequestKey];
-	NSString *respKey = hash[kTCAsyncHashProtocolResponseKey];
+	NSString *reqKey = hash[kCerfingRequestKey];
+	NSString *respKey = hash[kCerfingResponseKey];
 	if(reqKey) {
 		
-		TCLog(@"INC REQU: %@ %@", [hash objectForKey:kTCCommand], reqKey);
+		TCLog(@"INC REQU: %@ %@", [hash objectForKey:kCerfingCommand], reqKey);
 		
-		TCAsyncHashProtocolResponseCallback cb = ^(NSDictionary *response) {
+		CerfingResponseCallback cb = ^(NSDictionary *response) {
 			NSMutableDictionary *resp2 = [response mutableCopy];
-			resp2[kTCAsyncHashProtocolResponseKey] = reqKey;
-			[self sendHash:resp2];
+			resp2[kCerfingResponseKey] = reqKey;
+			[self sendDict:resp2];
 		};
 		
 		SEL sel = NSSelectorFromString([NSString stringWithFormat:@"request:%@:responder:", hash[@"command"]]);
 		SEL payloadSel = NSSelectorFromString([NSString stringWithFormat:@"request:%@:responder:payload:", hash[@"command"]]);
 		
-		if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:sel]) {
-            ((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash, cb);
-		} else 	if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:payloadSel]) {
-            ((void(*)(id, SEL, id, id, TCAsyncHashProtocolResponseCallback, id))[(id)_delegate methodForSelector:payloadSel])(_delegate, sel, self, hash, cb, payload);
+		if(self.automaticallyDispatchCommands && hash[kCerfingCommand] && [_delegate respondsToSelector:sel]) {
+            ((void(*)(id, SEL, id, id, CerfingResponseCallback))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash, cb);
+		} else 	if(self.automaticallyDispatchCommands && hash[kCerfingCommand] && [_delegate respondsToSelector:payloadSel]) {
+            ((void(*)(id, SEL, id, id, CerfingResponseCallback, id))[(id)_delegate methodForSelector:payloadSel])(_delegate, sel, self, hash, cb, payload);
 
-		} else if([_delegate respondsToSelector:@selector(protocol:receivedRequest:payload:responder:)]) {
-			[_delegate protocol:self receivedRequest:hash payload:payload responder:cb];
+		} else if([_delegate respondsToSelector:@selector(connection:receivedRequest:payload:responder:)]) {
+			[_delegate connection:self receivedRequest:hash payload:payload responder:cb];
         } else {
-            NSLog(@"%@: Invalid request '%@' for delegate %@", self, hash[kTCCommand], _delegate);
+            NSLog(@"%@: Invalid request '%@' for delegate %@", self, hash[kCerfingCommand], _delegate);
             [_transport disconnect];
         }
 	}
 	if(respKey) {
-		TCLog(@"INC RESP: %@ %@", [hash objectForKey:kTCCommand], respKey);
-		TCAsyncHashProtocolResponseCallback cb = requests[respKey];
+		TCLog(@"INC RESP: %@ %@", [hash objectForKey:kCerfingCommand], respKey);
+		CerfingResponseCallback cb = requests[respKey];
 		if(cb) cb(hash);
 		else NSLog(@"Discarded response: %@", hash);
 		[requests removeObjectForKey:respKey];
-		return YES; // we're not calling delegate at all, so MUST readHash here
+		return YES; // we're not calling delegate at all, so MUST readDict here
 	} 
 	if(!reqKey && !respKey) {
-		NSString *command = hash[kTCCommand];
+		NSString *command = hash[kCerfingCommand];
 		
-		TCLog(@"INC COMM: %@", [hash objectForKey:kTCCommand]);
+		TCLog(@"INC COMM: %@", [hash objectForKey:kCerfingCommand]);
 		
 		SEL sel = NSSelectorFromString([NSString stringWithFormat:@"command:%@:", command]);
 		SEL payloadSel = NSSelectorFromString([NSString stringWithFormat:@"command:%@:payload:", command]);
 		
-		if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:sel]) {
+		if(self.automaticallyDispatchCommands && hash[kCerfingCommand] && [_delegate respondsToSelector:sel]) {
             ((void(*)(id, SEL, id, id))[(id)_delegate methodForSelector:sel])(_delegate, sel, self, hash);
-		} else 	if(self.autoDispatchCommands && hash[kTCCommand] && [_delegate respondsToSelector:payloadSel]) {
+		} else 	if(self.automaticallyDispatchCommands && hash[kCerfingCommand] && [_delegate respondsToSelector:payloadSel]) {
             ((void(*)(id, SEL, id, id, id))[(id)_delegate methodForSelector:payloadSel])(_delegate, sel, self, hash, payload);
-		} else if([_delegate respondsToSelector:@selector(protocol:receivedHash:payload:)]) {
-            [_delegate protocol:self receivedHash:hash payload:payload];
+		} else if([_delegate respondsToSelector:@selector(connection:receivedDict:payload:)]) {
+            [_delegate connection:self receivedDict:hash payload:payload];
         } else {
-            NSLog(@"%@: Invalid command '%@' for delegate %@", self, hash[kTCCommand], _delegate);
+            NSLog(@"%@: Invalid command '%@' for delegate %@", self, hash[kCerfingCommand], _delegate);
             [_transport disconnect];
         }
 	}
 	
 	return NO;
 }
-- (void)transport:(TCAHPTransport*)transport didReadData:(NSData*)inData withTag:(long)tag
+- (void)transport:(CerfingTransport*)transport didReadData:(NSData*)inData withTag:(long)tag
 {
 	__typeof(self) surviveEvenIfReleasedByDelegate = self;
 	(void)surviveEvenIfReleasedByDelegate;
@@ -197,39 +197,39 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 		NSDictionary *hash = [self unserialize:inData];
 		NSAssert(hash != nil, @"really should be unserializable");
 		
-		NSNumber *payloadSize = hash[kTCAsyncHashProtocolPayloadSizeKey];
+		NSNumber *payloadSize = hash[kCerfingPayloadSizeKey];
 		if(payloadSize) {
 			savedHash = hash;
 			[transport readDataToLength:payloadSize.longValue withTimeout:-1 tag:kTagPayload];
 		} else {
 			_hasOutstandingHashRead = NO;
-			if([self needsReadHashAfterDelegating:hash payload:nil] || self.autoReadHash)
-				[self readHash];
+			if([self needsReadHashAfterDelegating:hash payload:nil] || self.automaticallyReadsDicts)
+				[self readDict];
 		}
 			
 	} else if(tag == kTagPayload) {
 		NSDictionary *hash = savedHash; savedHash = nil;
 		_hasOutstandingHashRead = NO;
 		
-		if([self needsReadHashAfterDelegating:hash payload:inData] || self.autoReadHash)
-			[self readHash];
+		if([self needsReadHashAfterDelegating:hash payload:inData] || self.automaticallyReadsDicts)
+			[self readDict];
 		
 	} else if([_delegate respondsToSelector:_cmd])
 		[(id)_delegate transport:transport didReadData:inData withTag:tag];
 }
--(void)sendHash:(NSDictionary*)hash;
+-(void)sendDict:(NSDictionary*)hash;
 {
-	[self sendHash:hash payload:nil];
+	[self sendDict:hash payload:nil];
 }
--(void)sendHash:(NSDictionary*)hash payload:(NSData*)payload;
+-(void)sendDict:(NSDictionary*)hash payload:(NSData*)payload;
 {
 	if(payload) {
 		hash = [hash mutableCopy];
-		((NSMutableDictionary*)hash)[kTCAsyncHashProtocolPayloadSizeKey] = @(payload.length);
+		((NSMutableDictionary*)hash)[kCerfingPayloadSizeKey] = @(payload.length);
 	}
 	NSData *unthing = [self serialize:hash];
 	
-	TCLog(@"OUT %@: %@ %@", [hash objectForKey:kTCAsyncHashProtocolRequestKey]?@"REQU":[hash objectForKey:kTCAsyncHashProtocolResponseKey]?@"RESP":@"COMM", [hash objectForKey:kTCCommand], [hash objectForKey:kTCAsyncHashProtocolRequestKey]?:[hash objectForKey:kTCAsyncHashProtocolResponseKey]);
+	TCLog(@"OUT %@: %@ %@", [hash objectForKey:kCerfingRequestKey]?@"REQU":[hash objectForKey:kCerfingResponseKey]?@"RESP":@"COMM", [hash objectForKey:kCerfingCommand], [hash objectForKey:kCerfingRequestKey]?:[hash objectForKey:kCerfingResponseKey]);
 	
 	NSMutableData *toSend = [[NSMutableData alloc] initWithCapacity:4 + unthing.length + payload.length];
 	
@@ -242,22 +242,22 @@ static NSString *const kTCAsyncHashProtocolPayloadSizeKey = @"__tcahp-payloadSiz
 
 	[_transport writeData:toSend withTimeout:-1];
 }
--(TCAsyncHashProtocolRequestCanceller)requestHash:(NSDictionary*)hash response:(TCAsyncHashProtocolResponseCallback)response;
+-(CerfingRequestCanceller)requestHash:(NSDictionary*)hash response:(CerfingResponseCallback)response;
 {
 	NSString *uuid = TCUUID();
 	requests[uuid] = [response copy];
-	TCAsyncHashProtocolRequestCanceller canceller = ^{ [requests removeObjectForKey:uuid]; };
+	CerfingRequestCanceller canceller = ^{ [requests removeObjectForKey:uuid]; };
 	
 	NSMutableDictionary *hash2 = [hash mutableCopy];
-	hash2[kTCAsyncHashProtocolRequestKey] = uuid;
+	hash2[kCerfingRequestKey] = uuid;
 	
-	[self sendHash:hash2];
+	[self sendDict:hash2];
 	
 	return canceller;
 }
--(void)readHash;
+-(void)readDict;
 {
-	NSAssert(_hasOutstandingHashRead == NO, @"-[readHash] can't be called again until the previous request has finished");
+	NSAssert(_hasOutstandingHashRead == NO, @"-[readDict] can't be called again until the previous request has finished");
 	_hasOutstandingHashRead = YES;
 	[_transport readDataToLength:4 withTimeout:-1 tag:kTagLength];
 }

@@ -1,4 +1,4 @@
-#import "TCAsyncHashProtocol.h"
+#import "CerfingConnection.h"
 
 @interface DemoServer : NSObject
 -(void)run;

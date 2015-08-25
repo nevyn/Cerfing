@@ -1,19 +1,19 @@
 //
-//  TCAHPSimpleServer.m
-//  TCAHPDemo
+//  CerfingSimpleServer.m
+//  CerfingDemo
 //
 //  Created by Joachim Bengtsson on 2012-10-06.
 //
 //
 
-#import "TCAHPSimpleServer.h"
+#import "CerfingSimpleServer.h"
 #import "AsyncSocket.h"
-#import "TCAsyncHashProtocol.h"
+#import "CerfingConnection.h"
 
-@interface TCAHPSimpleServer () <NSNetServiceDelegate>
+@interface CerfingSimpleServer () <NSNetServiceDelegate>
 @end
 
-@implementation TCAHPSimpleServer {
+@implementation CerfingSimpleServer {
 	AsyncSocket *_listen;
 	NSMutableArray *_clients;
 	NSTimer *_timer;
@@ -44,12 +44,12 @@
 
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket;
 {
-	// The TCAHP takes ownership of the socket and becomes its delegate. We only need to implement
-	// TCAHP's delegate now.
-	TCAsyncHashProtocol *proto = [[TCAsyncHashProtocol alloc] initWithSocket:newSocket delegate:_delegate];
+	// The CerfingConnection takes ownership of the socket and becomes its delegate. We only need to implement
+	// CerfingConnection's delegate now.
+	CerfingConnection *proto = [[CerfingConnection alloc] initWithSocket:newSocket delegate:_delegate];
 	
 	// Dispatch on selector of the incoming command instead of using delegate methods.
-	proto.autoDispatchCommands = YES;
+	proto.automaticallyDispatchCommands = YES;
 	
 	// Hang on to it, or else it has no owner and will disconnect.
 	[_clients addObject:proto];
@@ -58,10 +58,10 @@
     if([_delegate respondsToSelector:@selector(server:acceptedNewClient:)])
         [_delegate server:self acceptedNewClient:proto];
 }
-- (void)transportDidDisconnect:(TCAHPTransport*)transport
+- (void)transportDidDisconnect:(CerfingTransport*)transport
 {
-	TCAsyncHashProtocol *proto = nil;
-	for(TCAsyncHashProtocol *potential in _clients)
+	CerfingConnection *proto = nil;
+	for(CerfingConnection *potential in _clients)
 		if(potential.transport == transport) proto = potential;
     
     NSLog(@"Lost connection %@", transport);
@@ -72,8 +72,8 @@
 
 - (void)broadcast:(NSDictionary*)hash;
 {
-	for(TCAsyncHashProtocol *proto in _clients)
-		[proto sendHash:hash];
+	for(CerfingConnection *proto in _clients)
+		[proto sendDict:hash];
 }
 
 - (void)netServiceDidPublish:(NSNetService *)sender

@@ -1,25 +1,25 @@
 //
-//  TCAHPSimpleClient.m
-//  TCAHPDemo
+//  CerfingSimpleClient.m
+//  CerfingDemo
 //
 //  Created by Joachim Bengtsson on 2012-10-06.
 //
 //
 
-#import "TCAHPSimpleClient.h"
+#import "CerfingSimpleClient.h"
 
-@interface TCAHPSimpleClient () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
+@interface CerfingSimpleClient () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 @end
 
-@implementation TCAHPSimpleClient {
+@implementation CerfingSimpleClient {
     NSNetServiceBrowser *_browser;
     AsyncSocket *_connectingSocket;
     NSString *_serviceType;
-    id<TCAsyncHashProtocolDelegate> _delegate;
+    id<CerfingConnectionDelegate> _delegate;
     NSMutableSet *_pendingResolve;
     NSMutableSet *_resolved;
 }
-- (id)initConnectingToAnyHostOfType:(NSString*)serviceType delegate:(id<TCAsyncHashProtocolDelegate>)delegate
+- (id)initConnectingToAnyHostOfType:(NSString*)serviceType delegate:(id<CerfingConnectionDelegate>)delegate
 {
     if(!(self = [super init]))
         return nil;
@@ -93,10 +93,10 @@
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
     NSLog(@"Connected to %@", host);
-    self.proto = [[TCAsyncHashProtocol alloc] initWithSocket:sock delegate:_delegate];
+    self.proto = [[CerfingConnection alloc] initWithSocket:sock delegate:_delegate];
     _connectingSocket = nil;
-	_proto.autoDispatchCommands = YES;
-	[_proto readHash];
+	_proto.automaticallyDispatchCommands = YES;
+	[_proto readDict];
 }
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {

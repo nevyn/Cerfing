@@ -1,10 +1,10 @@
 #import "DemoClient.h"
-#import "TCAHPTransport.h"
+#import "CerfingTransport.h"
 
-@interface DemoClient ()  <TCAsyncHashProtocolDelegate, TCAHPTransportDelegate>
+@interface DemoClient ()  <CerfingConnectionDelegate, CerfingTransportDelegate>
 {
-	TCAHPTransport *_transport;
-	TCAsyncHashProtocol *_proto;
+	CerfingTransport *_transport;
+	CerfingConnection *_proto;
 }
 @end
 
@@ -23,16 +23,16 @@
 	// Exactly equivalent to  [[[AsyncSocket alloc] initWithDelegate:self] connectToHost:_host onPort:kPort error:nil]
 	_transport = [[self.transportClass alloc] initConnectingToHost:_host port:kPort delegate:self];
 }
-- (void)transportDidConnect:(TCAHPTransport*)transport;
+- (void)transportDidConnect:(CerfingTransport*)transport;
 {
 	NSLog(@"Client connected!");
-	_proto = [[TCAsyncHashProtocol alloc] initWithTransport:transport delegate:self];
+	_proto = [[CerfingConnection alloc] initWithTransport:transport delegate:self];
 	
 	// Dispatch on selector of the incoming command instead of using delegate methods.
-	_proto.autoDispatchCommands = YES;
+	_proto.automaticallyDispatchCommands = YES;
 	
 	// Start reading from the socket.
-	[_proto readHash];
+	[_proto readDict];
 	
 	if(_messageToSet)
 		[_proto requestHash:@{
@@ -47,14 +47,14 @@
 		}];
 }
 
-- (void)transport:(TCAHPTransport *)transport willDisconnectWithError:(NSError *)err
+- (void)transport:(CerfingTransport *)transport willDisconnectWithError:(NSError *)err
 {
 	NSLog(@"Client transport disconnection: %@", err);
 }
 
 // Command auto-dispatch will call this method since we're the proto's delegate when an incoming request dictionary contains
 // the key-value pair {@"command": @"setMessage"}.
--(void)command:(TCAsyncHashProtocol*)proto displayMessage:(NSDictionary*)hash;
+-(void)command:(CerfingConnection*)proto displayMessage:(NSDictionary*)hash;
 {
 	NSLog(@"Incoming message: %@", hash[@"contents"]);
 }

@@ -1,9 +1,9 @@
 #import "DemoServer.h"
-#import "TCAHPTransport.h"
+#import "CerfingTransport.h"
 
-@interface DemoServer () <TCAsyncHashProtocolDelegate, TCAHPTransportDelegate>
+@interface DemoServer () <CerfingConnectionDelegate, CerfingTransportDelegate>
 {
-	TCAHPTransport *_listen;
+	CerfingTransport *_listen;
 	NSMutableArray *_clients;
 	NSTimer *_timer;
 	NSString *_message;
@@ -29,14 +29,14 @@
 	NSLog(@"Server running");
 }
 
-- (void)listeningTransport:(TCAHPTransport*)listener acceptedConnection:(TCAHPTransport*)incoming
+- (void)listeningTransport:(CerfingTransport*)listener acceptedConnection:(CerfingTransport*)incoming
 {
-	// The TCAHP takes ownership of the socket and becomes its delegate. We only need to implement
-	// TCAHP's delegate now.
-	TCAsyncHashProtocol *proto = [[TCAsyncHashProtocol alloc] initWithTransport:incoming delegate:self];
+	// The CerfingConnection takes ownership of the socket and becomes its delegate. We only need to implement
+	// CerfingConnection's delegate now.
+	CerfingConnection *proto = [[CerfingConnection alloc] initWithTransport:incoming delegate:self];
 	
 	// Dispatch on selector of the incoming command instead of using delegate methods.
-	proto.autoDispatchCommands = YES;
+	proto.automaticallyDispatchCommands = YES;
 	
 	NSLog(@"Server accepted new socket %@", incoming);
 	
@@ -44,7 +44,7 @@
 	[_clients addObject:proto];
 }
 
-- (void)transport:(TCAHPTransport *)transport willDisconnectWithError:(NSError *)err
+- (void)transport:(CerfingTransport *)transport willDisconnectWithError:(NSError *)err
 {
     if(transport == _listen)
 		NSLog(@"Listen error: %@", err);
@@ -52,10 +52,10 @@
 		NSLog(@"Client %@ error: %@", transport, err);
 }
 
-- (void)transportDidDisconnect:(TCAHPTransport*)transport
+- (void)transportDidDisconnect:(CerfingTransport*)transport
 {
-	TCAsyncHashProtocol *proto = nil;
-	for(TCAsyncHashProtocol *potential in _clients)
+	CerfingConnection *proto = nil;
+	for(CerfingConnection *potential in _clients)
 		if(potential.transport == transport) proto = potential;
 	
 	NSLog(@"Removing disconnected client %@", transport);
@@ -65,8 +65,8 @@
 
 -(void)broadcast:(NSDictionary*)hash;
 {
-	for(TCAsyncHashProtocol *proto in _clients)
-		[proto sendHash:hash];
+	for(CerfingConnection *proto in _clients)
+		[proto sendDict:hash];
 }
 
 -(void)scheduledBroadcast;
@@ -79,7 +79,7 @@
 
 // Command auto-dispatch will call this method since we're the proto's delegate when an incoming request dictionary contains
 // the key-value pair {@"command": @"setMessage"}.
--(void)request:(TCAsyncHashProtocol*)proto setMessage:(NSDictionary*)hash responder:(TCAsyncHashProtocolResponseCallback)respond;
+-(void)request:(CerfingConnection*)proto setMessage:(NSDictionary*)hash responder:(CerfingResponseCallback)respond;
 {
 	NSString *newMessage = hash[@"contents"];
 	
@@ -100,14 +100,14 @@
 
 // If the incoming dictionary has a @"command" key whose value doesn't correspond to a selector of a method like
 // the one above, we can use this method as a catch-all for commands.
--(void)protocol:(TCAsyncHashProtocol*)proto receivedHash:(NSDictionary*)hash payload:(NSData*)payload;
+-(void)protocol:(CerfingConnection*)proto receivedHash:(NSDictionary*)hash payload:(NSData*)payload;
 {
 	NSLog(@"Invalid command: %@", hash);
 	[proto.transport disconnect];
 }
 // Like the above, but for messages that are requests that expects responses. Call 'responder' with a dictionary
 // to respond to the request.
--(void)protocol:(TCAsyncHashProtocol*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(TCAsyncHashProtocolResponseCallback)responder;
+-(void)protocol:(CerfingConnection*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(CerfingResponseCallback)responder;
 {
 	NSLog(@"Invalid request: %@", hash);
 	[proto.transport disconnect];

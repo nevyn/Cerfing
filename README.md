@@ -1,26 +1,29 @@
-TCAsyncHashProtocol
+Cerfing
 ====================
 By Joachim Bengtsson <joachimb@gmail.com>, 2011-12-28
 
-I like constructing simple network protocols from plist/json-safe dicts, and
+I like constructing simple network protocols from plist/json-safe dictionaries, and
 transmit them over a socket as json, with as little framing as possible. Easy
-to prototype with, easy to debug. Give TCAHP an AsyncSocket, and this is what
-it'll do for you, plus support for request-response, and arbitrary NSData
-attachments.
+to prototype with, easy to debug. Give Cerfing an AsyncSocket, and it:
 
-("HashProtocol" is a bit of a misnomer. 'Hash' in this context means
-"dictionary", from the Ruby usage of the word "hash" meaning "hash table".)
+* Will wrap the socket to send JSON-serialized dictionaries over it
+* Has a simple request-response system
+* Supports Arbitrary NSData attachments
+* Has an automatic 'delegate dispatching' feature, where the correct ObjC method
+  is called based on the contents of the incoming method (very simplistic RPC)
 
-It is an embarrassment and almost an insult that my example project is a
-massive 200 lines. I hope to be able to reduce the verbosity and boilerplate
-clutter of using TCAHP without making it heavy-weight.
+It can also:
+
+* Support other serializations than JSON;
+* Be interleaved with another network protocol
+* Wrap other socket libraries than AsyncSocket using a 'transport' abstraction.
 
 Example
 -------
 
-An example of using TCAHP to send a request to update the server's MOTD:
+An example of using Cerfing to send a request to update the server's MOTD:
 
-<pre><code>[_proto requestHash:@{
+<pre><code>[_conn requestDict:@{
 	@"command": @"setMessage", // the command is 'setMessage'
 	@"contents": msg // Send 'msg' as the new message to set.
 } response:^(NSDictionary *response) {
@@ -33,9 +36,9 @@ An example of using TCAHP to send a request to update the server's MOTD:
 
 And on the receiving side:
 
-<pre><code>-(void)request:(TCAsyncHashProtocol*)proto setMessage:(NSDictionary*)hash responder:(TCAsyncHashProtocolResponseCallback)respond;
+<pre><code>-(void)request:(CerfingConnection*)conn setMessage:(NSDictionary*)dict responder:(CerfingResponseCallback)respond;
 {
-	NSString *newMessage = hash[@"contents"];
+	NSString *newMessage = dict[@"contents"];
 	if([newMessage rangeOfString:@"noob"].location != NSNotFound) {
 		respond(@{
 			@"success": @NO,
@@ -49,9 +52,8 @@ And on the receiving side:
 	}
 }</code></pre>
 
-(Note the latest piece of magic that I added, where the selector of the
-delegate method is created based on the value of the key 'command' in the
-message. I quite like it.)
+Note that in the response, the selector of the method to be called (request:setMessage:responder:)
+has been deduced based on the incoming dictionary.
 
 As you can see, the resulting protocol is very weakly typed. In theory,
 this means you will be making typos and not understanding why the hell
@@ -60,27 +62,36 @@ your network seems broken; in reality, I've never had that problem.
 Installation
 ------------
 
-To use TCAHP with AsyncSocket, add these files to your project:
+To use Cerfing with AsyncSocket, add these files to your project:
 
-* TCAsyncHashProtocol.{h|m}
-* TCAHPTransport.{h|m}
-* TCAHPAsyncSocketTransport.{h|m}
+* CerfingConnection.{h|m}
+* CerfingTransport.{h|m}
+* CerfingAsyncSocketTransport.{h|m}
 
-To use TCAHP with Eminet (a UDP network library for game networking), replace
-TCAHPAsyncSocketTransport with TCAHPEmiConnectionTransport.
 
 What's up with the "Transport" abstraction?
 -------------------------------------------
 
-TCAHP used to be a single file. That was nice. However, I want to be able to use
+Cerfing used to be a single file. That was nice. However, I want to be able to use
 the same protocl over multiple different transports. To start off, I'd love to
-be able to use UDP in a game engine, but I don't want to break other usages of TCAHP
+be able to use UDP in a game engine, but I don't want to break other usages of Cerfing
 which wants to use it over TCP. The nicest (but not very nice) design I came up with
-was to add a layer between the TCAHP and the socket — thus, the transport. Adding layers
+was to add a layer between the Cerfing and the socket — thus, the transport. Adding layers
 to a design is often an antipattern (particularly when it's just a binding layer that
 adds very little in terms of abstraction). If you have a better design, please let me know.
 
-If you wish to use TCAHP as a single class with as little fuzz as possible, git tag "1.0.0"
+If you wish to use Cerfing as a single class with as little fuzz as possible, git tag "1.0.0"
 is stable and easy to use, and "1.1.0" is the last 1.x release that retains this API.
 
+
+What's up with the name 'Cerfing'?
+----------------------------------
+
+This project used to be called TCAHP, or TCAsyncHashProtocol, which is a terrible
+and unpronouncable name. Of course a network library is asynchronous; 'hash' isn't used
+to mean 'dictionary' in ObjC; and yeah ok, it's a protocol.
+
+'Cerfing' is a homage to Vint Cerf, one of the original creators of the Internet as
+we know it. By 'cerfing', you can quickly hack together network protocols without
+bothering too much about the implementation details.
 
