@@ -13,6 +13,7 @@
 		0547A98A1B8C814D00E1F32E /* CerfingConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F051B8BDEBA003C9DB8 /* CerfingConnection.m */; };
 		0547A98B1B8C814F00E1F32E /* CerfingSimpleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F011B8BDEBA003C9DB8 /* CerfingSimpleClient.m */; };
 		0547A98C1B8C814F00E1F32E /* CerfingSimpleServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F031B8BDEBA003C9DB8 /* CerfingSimpleServer.m */; };
+		0547A98E1B8CAFD500E1F32E /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 0547A98D1B8CAFD500E1F32E /* TODO.md */; };
 		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
 		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
 		05BA81C614AB67AB003E10FB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81C514AB67AB003E10FB /* CoreServices.framework */; };
@@ -45,6 +46,7 @@
 		053C2F0B1B8BDEBA003C9DB8 /* CerfingAsyncSocketTransport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CerfingAsyncSocketTransport.m; sourceTree = "<group>"; };
 		053C2F0C1B8BDEBA003C9DB8 /* CerfingTransport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CerfingTransport.h; sourceTree = "<group>"; };
 		053C2F0D1B8BDEBA003C9DB8 /* CerfingTransport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CerfingTransport.m; sourceTree = "<group>"; };
+		0547A98D1B8CAFD500E1F32E /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = TODO.md; path = ../TODO.md; sourceTree = "<group>"; };
 		05AE47F917F4AA1D00A40A21 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		05BA81AA14AB66F7003E10FB /* CerfingDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CerfingDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		05BA81AE14AB66F7003E10FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				05BA81DF14ABBC57003E10FB /* README.md */,
+				0547A98D1B8CAFD500E1F32E /* TODO.md */,
 				05BA81B014AB66F7003E10FB /* Demo */,
 				053C2EFE1B8BDEBA003C9DB8 /* Cerfing */,
 				05BA81AD14AB66F7003E10FB /* Frameworks */,
@@ -220,6 +223,7 @@
 				05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */,
 				0547A9871B8C814300E1F32E /* CerfingAsyncSocketTransport.m in Sources */,
 				0547A9891B8C814A00E1F32E /* AsyncSocket.m in Sources */,
+				0547A98E1B8CAFD500E1F32E /* TODO.md in Sources */,
 				0547A9881B8C814500E1F32E /* CerfingTransport.m in Sources */,
 				05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */,
 				0547A98A1B8C814D00E1F32E /* CerfingConnection.m in Sources */,
