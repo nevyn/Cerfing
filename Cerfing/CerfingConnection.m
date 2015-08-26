@@ -237,13 +237,13 @@ NSString *const kCerfingCommand = @"command";
 
 	[_transport writeData:toSend withTimeout:-1];
 }
--(CerfingRequestCanceller)requestHash:(NSDictionary*)hash response:(CerfingResponseCallback)response;
+-(CerfingRequestCanceller)requestDict:(NSDictionary*)dict response:(CerfingResponseCallback)response;
 {
 	NSString *uuid = TCUUID();
 	requests[uuid] = [response copy];
 	CerfingRequestCanceller canceller = ^{ [requests removeObjectForKey:uuid]; };
 	
-	NSMutableDictionary *hash2 = [hash mutableCopy];
+	NSMutableDictionary *hash2 = [dict mutableCopy];
 	hash2[kCerfingRequestKey] = uuid;
 	
 	[self sendDict:hash2];
@@ -258,7 +258,7 @@ NSString *const kCerfingCommand = @"command";
 }
 -(NSString*)description;
 {
-	return [NSString stringWithFormat:@"<TCAsyncHashProtocol@%p over %@>", self, _transport];
+	return [NSString stringWithFormat:@"<%@@%p over %@>", [self class], self, _transport];
 }
 @end
 

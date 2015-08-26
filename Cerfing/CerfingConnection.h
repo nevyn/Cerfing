@@ -92,10 +92,10 @@ typedef void(^CerfingRequestCanceller)();
 */
 -(void)sendDict:(NSDictionary*)dictionary payload:(NSData*)payload;
 
-/*! Like 'sendDictionary:', but also indicating that you also want a response back.
+/*! Like 'sendDict:', but also indicating that you also want a response back.
 	The 'response' callback will be called when the other side responds.
 */
--(CerfingRequestCanceller)requestHash:(NSDictionary*)hash response:(CerfingResponseCallback)response;
+-(CerfingRequestCanceller)requestDict:(NSDictionary*)dict response:(CerfingResponseCallback)response;
 
 /*!
 	@property automaticallyReadsDicts
@@ -125,8 +125,8 @@ typedef void(^CerfingRequestCanceller)();
 	protocol into multiple methods without having a big 'else if' block in your delegate method.
 	
 	Selector signature patterns, where %@ is the value for the key 'command':
-	For command: -(void)command:(TCAsyncHashProtocol*)proto %@:(NSDictionary*)hash {optional payload:(NSData*)payload}
-	For request: -(void)request:(TCAsyncHashProtocol*)proto %@:(NSDictionary*)hash responder:(TCAsyncHashProtocolResponseCallback)callback {optional payload:(NSData*)payload}
+	For command: -(void)command:(CerfingConnection*)proto %@:(NSDictionary*)dict {optional payload:(NSData*)payload}
+	For request: -(void)request:(CerfingConnection*)proto %@:(NSDictionary*)dict responder:(CerfingResponseCallback)callback {optional payload:(NSData*)payload}
 */
 @property(nonatomic) BOOL automaticallyDispatchCommands;
 @end
@@ -137,6 +137,10 @@ typedef void(^CerfingRequestCanceller)();
 	
 	@note If you have set automaticallyReadsDicts to NO, call readDict some time after receiving any of these
 	      callbacks in order to continue receiving hashes.
+	
+	@note If automaticallyDispatchCommands is on, this delegate will also receive
+		  -command::: and -request:::: messages, even if none of the below methods
+		  are implemented.
 */
 @protocol CerfingConnectionDelegate <NSObject, CerfingTransportDelegate>
 @optional

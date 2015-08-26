@@ -35,7 +35,7 @@
 	[_proto readDict];
 	
 	if(_messageToSet)
-		[_proto requestHash:@{
+		[_proto requestDict:@{
 			@"command": @"setMessage",
 			@"contents": _messageToSet
 		} response:^(NSDictionary *response) {
