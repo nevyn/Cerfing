@@ -36,7 +36,6 @@ NSString *const kCerfingCommand = @"command";
 	NSMutableDictionary *requests;
 	NSDictionary *savedHash;
 	BOOL _hasOutstandingHashRead;
-	BOOL _customSerialization;
 }
 @synthesize transport = _transport, delegate = _delegate, automaticallyReadsDicts = _automaticallyReadsDicts;
 @synthesize automaticallyDispatchCommands = _automaticallyDispatchCommands;
@@ -48,15 +47,11 @@ NSString *const kCerfingCommand = @"command";
 	if(!(self = [super init])) return nil;
 	
 	self.transport = transport;
+	self.serializer = [CerfingSerializer JSONSerializer];
 	_automaticallyReadsDicts = YES;
 	_transport.delegate = self;
 	_delegate = delegate;
 	requests = [NSMutableDictionary dictionary];
-	
-	BOOL supportsSerialization = [delegate respondsToSelector:@selector(connection:serializeDict:)];
-	BOOL supportsUnserialization = [delegate respondsToSelector:@selector(connection:unserializeDict:)];
-	_customSerialization = supportsSerialization && supportsUnserialization;
-	NSAssert(~(supportsSerialization ^ supportsUnserialization), @"Must support neither, or both.");
 	
 	return self;
 }
@@ -101,17 +96,11 @@ NSString *const kCerfingCommand = @"command";
 */
 -(NSData*)serialize:(id)thing;
 {
-	if(_customSerialization)
-		return [_delegate connection:self serializeDict:thing];
-	NSError *err = nil;
-	return [NSJSONSerialization dataWithJSONObject:thing options:0 error:&err];
+	return self.serializer.serialize(thing);
 }
 -(id)unserialize:(NSData*)unthing;
 {
-	if(_customSerialization)
-		return [_delegate connection:self unserializeDict:unthing];
-	NSError *err = nil;
-	return [NSJSONSerialization JSONObjectWithData:unthing options:0 error:&err];
+	return self.serializer.unserialize(unthing);
 }
 
 #pragma mark Transport

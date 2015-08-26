@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "CerfingTransport.h"
+#import "CerfingSerializer.h"
 @class AsyncSocket;
 @protocol CerfingConnectionDelegate;
 
@@ -72,6 +73,13 @@ typedef void(^CerfingRequestCanceller)();
 			  delegate methods related to the functionality of this connection. */
 @property(nonatomic,weak,readwrite) id<CerfingConnectionDelegate> delegate;
 
+/*!
+	@property serializer
+	@abstract Choose the wire format for serializing dictionary data
+	@default +[CerfingSerializer JSONSerializer]
+*/
+@property(nonatomic,strong,readwrite) CerfingSerializer *serializer;
+
 
 /*!
 	Send any dictionary containing plist-safe types to the other side. Add the
@@ -134,12 +142,6 @@ typedef void(^CerfingRequestCanceller)();
 @optional
 -(void)connection:(CerfingConnection*)proto receivedDict:(NSDictionary*)hash payload:(NSData*)payload;
 -(void)connection:(CerfingConnection*)proto receivedRequest:(NSDictionary*)hash payload:(NSData*)payload responder:(CerfingResponseCallback)responder;
-
-@optional
-/** By default, Cerfing serializes data using JSON. Implement these two methods to use some other serialization,
-	such as plist, NSCoding, or gzipped json. */
-- (NSData*)connection:(CerfingConnection*)proto serializeDict:(NSDictionary*)hash;
-- (NSDictionary*)connection:(CerfingConnection*)proto unserializeDict:(NSData*)unhash;
 @end
 
 /** @abstract If used as a key in the sent hash, enables the behavior described
