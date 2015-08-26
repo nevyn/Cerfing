@@ -13,7 +13,6 @@
 		0547A98A1B8C814D00E1F32E /* CerfingConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F051B8BDEBA003C9DB8 /* CerfingConnection.m */; };
 		0547A98B1B8C814F00E1F32E /* CerfingSimpleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F011B8BDEBA003C9DB8 /* CerfingSimpleClient.m */; };
 		0547A98C1B8C814F00E1F32E /* CerfingSimpleServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F031B8BDEBA003C9DB8 /* CerfingSimpleServer.m */; };
-		0547A98E1B8CAFD500E1F32E /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 0547A98D1B8CAFD500E1F32E /* TODO.md */; };
 		05B92C841B8E2E6700226846 /* CerfingSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B92C831B8E2E6700226846 /* CerfingSerializer.m */; };
 		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
 		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
@@ -228,7 +227,6 @@
 				05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */,
 				0547A9871B8C814300E1F32E /* CerfingAsyncSocketTransport.m in Sources */,
 				0547A9891B8C814A00E1F32E /* AsyncSocket.m in Sources */,
-				0547A98E1B8CAFD500E1F32E /* TODO.md in Sources */,
 				0547A9881B8C814500E1F32E /* CerfingTransport.m in Sources */,
 				05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */,
 				0547A98A1B8C814D00E1F32E /* CerfingConnection.m in Sources */,
