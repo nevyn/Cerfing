@@ -1,5 +1,11 @@
 #import "CerfingConnection.h"
-#import "CerfingAsyncSocketTransport.h"
+
+// Shadow interface. Not doing an import, so that a Cerfing library user can choose
+// to not compile in AsyncSocket support.
+@interface CerfingAsyncSocketTransport : CerfingTransport
+- (id)initWithSocket:(AsyncSocket*)socket delegate:(id<CerfingTransportDelegate>)delegate;
+@end
+
 
 #if !__has_feature(objc_arc)
 #error This file must be compiled with -fobjc-arc.

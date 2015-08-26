@@ -2,7 +2,7 @@
 @protocol CerfingTransportDelegate;
 
 /** Abstracts the transport from the protocol, so that we can use
-	TCHAP over other things than AsyncSockets. Abstract subclass. */
+	TCHAP over other things than AsyncSockets. Abstract superclass. */
 @interface CerfingTransport : NSObject
 @property(nonatomic,weak) id<CerfingTransportDelegate> delegate;
 @end
