@@ -66,8 +66,9 @@ To use Cerfing with AsyncSocket, add these files to your project:
 
 * CerfingConnection.{h|m}
 * CerfingTransport.{h|m}
+* CerfingSerialization.{h|m}
 * CerfingAsyncSocketTransport.{h|m}
-
+* AsyncSocket (the RunLoop variant; from this repo or from the original distribution)
 
 What's up with the "Transport" abstraction?
 -------------------------------------------
