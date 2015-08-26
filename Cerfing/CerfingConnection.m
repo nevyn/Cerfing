@@ -22,7 +22,7 @@
 static NSString *TCUUID(void);
 
 enum {
-	kTagLength,
+	kTagLength = 1001,
 	kTagData,
 	kTagPayload,
 };
