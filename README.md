@@ -1,6 +1,6 @@
 Cerfing
 ====================
-By Joachim Bengtsson <joachimb@gmail.com>, 2011-12-28
+By Nevyn Joachim Bengtsson <nevyn.jpg@gmail.com>, 2011-12-28
 
 I like constructing simple network protocols from plist/json-safe dictionaries, and
 transmit them over a socket as json, with as little framing as possible. Easy
