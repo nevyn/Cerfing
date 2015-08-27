@@ -11,7 +11,7 @@ typedef NSDictionary *(^CerfingUnserialize)(NSData *data);
 */
 @interface CerfingSerializer : NSObject
 + (instancetype)JSONSerializer;
-//+ (instancetype)GZIPJSONSerializer;
++ (instancetype)GZIPJSONSerializer;
 //+ (instancetype)propertyListSerializer;
 
 - (instancetype)initWithSerializer:(CerfingSerialize)serializer unserializer:(CerfingUnserialize)unserializer;
