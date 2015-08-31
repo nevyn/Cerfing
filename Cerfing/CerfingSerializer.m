@@ -31,6 +31,24 @@
 	}];
 }
 
++ (instancetype)keyedArchiverSerializerWithSecureCoding:(BOOL)requiresSecureCoding
+{
+	return [[self alloc] initWithSerializer:^NSData *(NSDictionary *dict) {
+		NSMutableData *data = [NSMutableData new];
+		NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+		archiver.requiresSecureCoding = requiresSecureCoding;
+		[archiver encodeObject:dict forKey:@"root"];
+		[archiver finishEncoding];
+		return data;
+	} unserializer:^NSDictionary *(NSData *data) {
+		NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+		unarchiver.requiresSecureCoding = requiresSecureCoding;
+		id root = [unarchiver decodeObjectOfClass:[NSDictionary class] forKey:@"root"];
+		return root;
+	}];
+
+}
+
 - (instancetype)initWithSerializer:(CerfingSerialize)serializer unserializer:(CerfingUnserialize)unserializer
 {
 	if(!(self = [super init]))
