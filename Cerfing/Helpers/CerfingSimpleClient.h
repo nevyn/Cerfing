@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CerfingConnection.h"
-#import "AsyncSocket.h"
+#import <Cerfing/CerfingConnection.h>
+#import <Cerfing/Transports/AsyncSocket/AsyncSocket.h>
 
 // Just finds the first Bonjour service it can find, connects, and forwards commands to you if it's connected.
 @interface CerfingSimpleClient : NSObject

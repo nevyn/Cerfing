@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CerfingConnection.h"
+#import <Cerfing/CerfingConnection.h>
 
 // Does some bonjour and listen socket boiler plate for you. Just set it up and implement some command: or request: methods on your delegate.
 @interface CerfingSimpleServer : NSObject
