@@ -1,5 +1,5 @@
 #import "DemoClient.h"
-#import "CerfingTransport.h"
+#import <Cerfing/Cerfing.h>
 
 @interface DemoClient ()  <CerfingConnectionDelegate, CerfingTransportDelegate>
 {

@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "CerfingConnection.h"
-#import "CerfingAsyncSocketTransport.h"
+#import <Cerfing/Cerfing.h>
+
 #import "DemoServer.h"
 #import "DemoClient.h"
 

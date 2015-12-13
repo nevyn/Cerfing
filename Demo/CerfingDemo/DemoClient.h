@@ -1,4 +1,4 @@
-#import "CerfingConnection.h"
+#import <Foundation/Foundation.h>
 
 @interface DemoClient : NSObject
 @property(copy) NSString *host;

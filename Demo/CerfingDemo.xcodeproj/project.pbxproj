@@ -47,6 +47,7 @@
 		053C2F0C1B8BDEBA003C9DB8 /* CerfingTransport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CerfingTransport.h; sourceTree = "<group>"; };
 		053C2F0D1B8BDEBA003C9DB8 /* CerfingTransport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CerfingTransport.m; sourceTree = "<group>"; };
 		0547A98D1B8CAFD500E1F32E /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = TODO.md; path = ../TODO.md; sourceTree = "<group>"; };
+		05AB5EA01C1D03840016BB44 /* Cerfing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cerfing.h; sourceTree = "<group>"; };
 		05AE47F917F4AA1D00A40A21 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		05B92C821B8E2E6700226846 /* CerfingSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CerfingSerializer.h; sourceTree = "<group>"; };
 		05B92C831B8E2E6700226846 /* CerfingSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CerfingSerializer.m; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 		053C2EFE1B8BDEBA003C9DB8 /* Cerfing */ = {
 			isa = PBXGroup;
 			children = (
+				05AB5EA01C1D03840016BB44 /* Cerfing.h */,
 				053C2F041B8BDEBA003C9DB8 /* CerfingConnection.h */,
 				053C2F051B8BDEBA003C9DB8 /* CerfingConnection.m */,
 				05B92C821B8E2E6700226846 /* CerfingSerializer.h */,
@@ -307,6 +309,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CerfingDemo/CerfingDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = ..;
 				PRODUCT_NAME = CerfingDemo;
 			};
 			name = Debug;
@@ -316,6 +319,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CerfingDemo/CerfingDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = ..;
 				PRODUCT_NAME = CerfingDemo;
 			};
 			name = Release;
