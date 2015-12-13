@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "Cerfing"
-  s.version      = "2.0.0"
+  s.version      = "2.0.1"
   s.summary      = "Lightweight json-based network protocol for rapid prototyping"
 
   s.description  = <<-DESC
@@ -33,6 +33,7 @@ Pod::Spec.new do |s|
   # ――― Build settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.source_files  = "Cerfing", "Cerfing/**/*.{h,m}"
+  s.header_mappings_dir = 'Cerfing'
   # s.public_header_files = "Classes/**/*.h"
   s.ios.frameworks = "Foundation"
   s.osx.frameworks = "Foundation", "CoreServices"
