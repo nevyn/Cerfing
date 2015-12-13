@@ -33,6 +33,7 @@ Pod::Spec.new do |s|
   # ――― Build settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.source_files  = "Cerfing", "Cerfing/**/*.{h,m}"
+  s.header_mappings_dir = 'Cerfing'
   # s.public_header_files = "Classes/**/*.h"
   s.ios.frameworks = "Foundation"
   s.osx.frameworks = "Foundation", "CoreServices"
