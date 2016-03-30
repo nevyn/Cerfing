@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		0547A9871B8C814300E1F32E /* CerfingAsyncSocketTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F0B1B8BDEBA003C9DB8 /* CerfingAsyncSocketTransport.m */; };
 		0547A9881B8C814500E1F32E /* CerfingTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F0D1B8BDEBA003C9DB8 /* CerfingTransport.m */; };
-		0547A9891B8C814A00E1F32E /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F091B8BDEBA003C9DB8 /* AsyncSocket.m */; };
 		0547A98A1B8C814D00E1F32E /* CerfingConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F051B8BDEBA003C9DB8 /* CerfingConnection.m */; };
 		0547A98B1B8C814F00E1F32E /* CerfingSimpleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F011B8BDEBA003C9DB8 /* CerfingSimpleClient.m */; };
 		0547A98C1B8C814F00E1F32E /* CerfingSimpleServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 053C2F031B8BDEBA003C9DB8 /* CerfingSimpleServer.m */; };
+		058656561CAB966800896FF3 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 058656551CAB966800896FF3 /* AsyncSocket.m */; };
 		05B92C841B8E2E6700226846 /* CerfingSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B92C831B8E2E6700226846 /* CerfingSerializer.m */; };
 		05BA81AF14AB66F7003E10FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA81AE14AB66F7003E10FB /* Foundation.framework */; };
 		05BA81B214AB66F7003E10FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BA81B114AB66F7003E10FB /* main.m */; };
@@ -40,13 +40,13 @@
 		053C2F031B8BDEBA003C9DB8 /* CerfingSimpleServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CerfingSimpleServer.m; sourceTree = "<group>"; };
 		053C2F041B8BDEBA003C9DB8 /* CerfingConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CerfingConnection.h; sourceTree = "<group>"; };
 		053C2F051B8BDEBA003C9DB8 /* CerfingConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CerfingConnection.m; sourceTree = "<group>"; };
-		053C2F081B8BDEBA003C9DB8 /* AsyncSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
-		053C2F091B8BDEBA003C9DB8 /* AsyncSocket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		053C2F0A1B8BDEBA003C9DB8 /* CerfingAsyncSocketTransport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CerfingAsyncSocketTransport.h; sourceTree = "<group>"; };
 		053C2F0B1B8BDEBA003C9DB8 /* CerfingAsyncSocketTransport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CerfingAsyncSocketTransport.m; sourceTree = "<group>"; };
 		053C2F0C1B8BDEBA003C9DB8 /* CerfingTransport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CerfingTransport.h; sourceTree = "<group>"; };
 		053C2F0D1B8BDEBA003C9DB8 /* CerfingTransport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CerfingTransport.m; sourceTree = "<group>"; };
 		0547A98D1B8CAFD500E1F32E /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = TODO.md; path = ../TODO.md; sourceTree = "<group>"; };
+		058656541CAB966800896FF3 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		058656551CAB966800896FF3 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		05AB5EA01C1D03840016BB44 /* Cerfing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cerfing.h; sourceTree = "<group>"; };
 		05AE47F917F4AA1D00A40A21 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		05B92C821B8E2E6700226846 /* CerfingSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CerfingSerializer.h; sourceTree = "<group>"; };
@@ -115,12 +115,29 @@
 		053C2F071B8BDEBA003C9DB8 /* AsyncSocket */ = {
 			isa = PBXGroup;
 			children = (
-				053C2F081B8BDEBA003C9DB8 /* AsyncSocket.h */,
-				053C2F091B8BDEBA003C9DB8 /* AsyncSocket.m */,
 				053C2F0A1B8BDEBA003C9DB8 /* CerfingAsyncSocketTransport.h */,
 				053C2F0B1B8BDEBA003C9DB8 /* CerfingAsyncSocketTransport.m */,
 			);
 			path = AsyncSocket;
+			sourceTree = "<group>";
+		};
+		058656521CAB966800896FF3 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				058656531CAB966800896FF3 /* AsyncSocket */,
+			);
+			name = Libraries;
+			path = ../Libraries;
+			sourceTree = "<group>";
+		};
+		058656531CAB966800896FF3 /* AsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				058656541CAB966800896FF3 /* AsyncSocket.h */,
+				058656551CAB966800896FF3 /* AsyncSocket.m */,
+			);
+			name = AsyncSocket;
+			path = CocoaAsyncSocket;
 			sourceTree = "<group>";
 		};
 		05BA819F14AB66F7003E10FB = {
@@ -146,6 +163,7 @@
 		05BA81AD14AB66F7003E10FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				058656521CAB966800896FF3 /* Libraries */,
 				05AE47F917F4AA1D00A40A21 /* Security.framework */,
 				05BA81C514AB67AB003E10FB /* CoreServices.framework */,
 				05BA81AE14AB66F7003E10FB /* Foundation.framework */,
@@ -226,9 +244,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				05BA81B214AB66F7003E10FB /* main.m in Sources */,
+				058656561CAB966800896FF3 /* AsyncSocket.m in Sources */,
 				05BA81DA14ABBB39003E10FB /* DemoServer.m in Sources */,
 				0547A9871B8C814300E1F32E /* CerfingAsyncSocketTransport.m in Sources */,
-				0547A9891B8C814A00E1F32E /* AsyncSocket.m in Sources */,
 				0547A9881B8C814500E1F32E /* CerfingTransport.m in Sources */,
 				05BA81DE14ABBB42003E10FB /* DemoClient.m in Sources */,
 				0547A98A1B8C814D00E1F32E /* CerfingConnection.m in Sources */,
@@ -309,7 +327,10 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CerfingDemo/CerfingDemo-Prefix.pch";
-				HEADER_SEARCH_PATHS = ..;
+				HEADER_SEARCH_PATHS = (
+					..,
+					../Libraries,
+				);
 				PRODUCT_NAME = CerfingDemo;
 			};
 			name = Debug;
@@ -319,7 +340,10 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CerfingDemo/CerfingDemo-Prefix.pch";
-				HEADER_SEARCH_PATHS = ..;
+				HEADER_SEARCH_PATHS = (
+					..,
+					../Libraries,
+				);
 				PRODUCT_NAME = CerfingDemo;
 			};
 			name = Release;

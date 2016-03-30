@@ -7,7 +7,7 @@
 //
 
 #import "CerfingSimpleServer.h"
-#import <Cerfing/Transports/AsyncSocket/AsyncSocket.h>
+#import <CocoaAsyncSocket/AsyncSocket.h>
 #import <Cerfing/CerfingConnection.h>
 
 @interface CerfingSimpleServer () <NSNetServiceDelegate>
