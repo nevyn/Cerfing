@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "Cerfing"
-  s.version      = "2.0.3"
+  s.version      = "2.0.4"
   s.summary      = "Lightweight json-based network protocol for rapid prototyping"
 
   s.description  = <<-DESC
