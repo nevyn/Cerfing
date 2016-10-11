@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import <Cerfing/Transports/CerfingTransport.h>
-#import <Cerfing/CerfingSerializer.h>
+#import "Transports/CerfingTransport.h"
+#import "CerfingSerializer.h"
 @class AsyncSocket;
 @protocol CerfingConnectionDelegate;
 

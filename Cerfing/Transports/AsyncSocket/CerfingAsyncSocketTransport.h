@@ -1,4 +1,4 @@
-#import <Cerfing/Transports/CerfingTransport.h>
+#import "../CerfingTransport.h"
 #import <CocoaAsyncSocket/AsyncSocket.h>
 
 /** Wraps an AsyncSocket and uses it as transport for a CerfingConnection. */
