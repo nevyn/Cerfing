@@ -37,5 +37,5 @@ Pod::Spec.new do |s|
   # s.public_header_files = "Classes/**/*.h"
   s.ios.frameworks = "Foundation"
   s.osx.frameworks = "Foundation", "CoreServices"
-  s.dependency "CocoaAsyncSocket", '~> 7.4'
+  s.dependency "CocoaAsyncSocket", '7.4.3'
 end
